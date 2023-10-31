@@ -1,9 +1,11 @@
 #define GL_SILENCE_DEPRECATION
 
 #include <iostream>
-#include <GLFW/glfw3.h>
 #include <OpenGL/gl3.h>
+#include <GLFW/glfw3.h>
 #include "engine/Shader.h"
+#include "stb_image.h"
+#include "engine/Texture.h"
 
 void onResizeWindow(GLFWwindow *window, int width, int height) {
     glViewport(0, 0, width, height);
@@ -41,43 +43,14 @@ int main() {
     glViewport(0, 0, 800, 600);
     glfwSetFramebufferSizeCallback(window, onResizeWindow);
 
-    GLfloat vertices[] = {
-            -0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, // left
-            0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, // right
-            0.0f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f // top
-    };
-
-    GLuint vao;
-    glGenVertexArrays(1, &vao);
-    glBindVertexArray(vao);
-
-    GLuint vbo;
-    glGenBuffers(1, &vbo);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glBufferData(
-            GL_ARRAY_BUFFER,
-            sizeof(vertices),
-            vertices,
-            GL_STATIC_DRAW
-    );
-
-    const auto simpleColorShader = Engine::Shader("shaders/shader_lesson/vertex_with_color.glsl",
-                                                  "shaders/shader_lesson/fragment_with_color_input.glsl");
-
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), nullptr);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (void *) (3 * sizeof(GLfloat)));
-    glEnableVertexAttribArray(0);
-    glEnableVertexAttribArray(1);
-
-    glBindVertexArray(0);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glUseProgram(0);
+    const auto shader = Engine::Shader("shaders/texture_lesson/vertex_ct.glsl",
+                                       "shaders/texture_lesson/fragment_ct.glsl");
 
     float boxVertices[] = {
-            0.5f, 0.5f, 0.0f,
-            0.5f, -0.5f, 0.0f,
-            -0.5f, -0.5f, 0.0f,
-            -0.5f, 0.5f, 0.0f,
+            0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f,   // top right
+            0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,   // bottom right
+            -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,   // bottom left
+            -0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f    // top left
     };
 
     GLuint boxIndices[] = {
@@ -111,23 +84,39 @@ int main() {
             GL_STATIC_DRAW
     );
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), nullptr);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), nullptr);
     glEnableVertexAttribArray(0);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (void *) (3 * sizeof(GLfloat)));
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (void *) (6 * sizeof(GLfloat)));
+    glEnableVertexAttribArray(2);
 
     glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
+    stbi_set_flip_vertically_on_load(true);
+
+    const auto texture0 = Engine::Texture("textures/wooden_container.png");
+    const auto texture1 = Engine::Texture("textures/smile.png");
+
+    texture0.bind(GL_TEXTURE0);
+    texture1.bind(GL_TEXTURE1);
+
     while (!glfwWindowShouldClose(window)) {
         processInput(window);
+
 
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        simpleColorShader.use();
-        simpleColorShader.setUniform("horizontalOffset", 0.5f);
-        glBindVertexArray(vao);
-        glDrawArrays(GL_TRIANGLES, 0, 3);
+        shader.setUniform("texture1", 0);
+        shader.setUniform("texture2", 1);
+
+        shader.use();
+
+        glBindVertexArray(boxVao);
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 
         glfwSwapBuffers(window);
         glfwPollEvents();

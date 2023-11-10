@@ -154,9 +154,6 @@ int main() {
 
     auto lastFrameTime = static_cast<float>(glfwGetTime());
 
-    glCullFace(GL_BACK);
-    glEnable(GL_CULL_FACE);
-
     while (!glfwWindowShouldClose(window)) {
         processInput(window);
 

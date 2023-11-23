@@ -12,7 +12,9 @@ Food::Food(): shader("shaders/snake/food/vertex.glsl", "shaders/snake/food/fragm
 
 void Food::draw(glm::mat4 &viewMatrix, glm::mat4 &projectionMatrix) {
     shader.use();
-    shader.setUniform("u_color", glm::vec4(0.8f, 0.2f, 0.2f, 1.0f));
+    shader.setUniform("u_fillColor", glm::vec4(0.8f, 0.5f, 0.5f, 1.0f));
+    shader.setUniform("u_borderColor", glm::vec4(0.8f, 0.2f, 0.2f, 1.0f));
+    shader.setUniform("u_borderSize", 0.05f);
 
     glm::mat4 modelMatrix = glm::mat4(1.0f);
     modelMatrix = glm::translate(modelMatrix, glm::vec3(position.x, 0.f,  position.y));

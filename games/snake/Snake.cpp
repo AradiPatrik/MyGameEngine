@@ -5,8 +5,10 @@
 #include "Snake.h"
 #include "MeshUtils.h"
 
-Snake::Snake(GLFWwindow *window) : window(window),
-                                   shader("shaders/snake/snake/vertex.glsl", "shaders/snake/snake/fragment.glsl") {
+Snake::Snake(GLFWwindow *window, Food &food) : window(window),
+                                               shader("shaders/snake/snake/vertex.glsl",
+                                                      "shaders/snake/snake/fragment.glsl"),
+                                               food(food) {
     vao = MeshUtils::createBoxVao();
 }
 
@@ -25,10 +27,14 @@ void Snake::tick(float deltaTime) {
 
     if (timeSinceLastMove > 1.f / MOVES_PER_SECOND) {
         body.emplace_back(body.back());
-        body.erase(body.begin());
         auto &pos = body.back();
         pos.y += heading == Heading::UP ? -1.f : ((heading == Heading::DOWN) ? 1.f : 0.f);
         pos.x += heading == Heading::RIGHT ? 1.f : ((heading == Heading::LEFT) ? -1.f : 0.f);
+        if (pos.x == food.getPosition().x && pos.y == food.getPosition().y) {
+            food.respawn();
+        } else {
+            body.erase(body.begin());
+        }
         timeSinceLastMove = 0.0f;
     }
 }
@@ -40,7 +46,7 @@ void Snake::draw(glm::mat4 &viewMatrix, glm::mat4 &projectionMatrix) {
     shader.setUniform("u_borderSize", 0.05f);
     shader.setUniform("u_fillColor", glm::vec4(0.4f, 0.5f, 1.0f, 1.0f));
 
-    for (auto &pos : body) {
+    for (auto &pos: body) {
         glm::mat4 modelMatrix = glm::mat4(1.0f);
         modelMatrix = glm::translate(modelMatrix, glm::vec3(pos.x, 0.0f, pos.y));
         modelMatrix = glm::scale(modelMatrix, glm::vec3(0.9f, 0.9f, 0.9f));

@@ -7,6 +7,7 @@
 
 #include <GLFW/glfw3.h>
 #include "../../engine/Shader.h"
+#include "Food.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -14,7 +15,7 @@ using namespace Engine;
 
 class Snake {
 public:
-    explicit Snake(GLFWwindow *window);
+    explicit Snake(GLFWwindow *window, Food& food);
 
     void tick(float deltaTime);
     void draw(glm::mat4 &viewMatrix, glm::mat4 &projectionMatrix);
@@ -38,7 +39,9 @@ private:
 
     GLuint vao;
 
-    static const int MOVES_PER_SECOND = 2;
+    Food& food;
+
+    static const int MOVES_PER_SECOND = 5;
 };
 
 

@@ -53,7 +53,7 @@ int main() {
     glfwSetFramebufferSizeCallback(window, onResizeWindow);
 
     Food food;
-    Snake snake(window);
+    Snake snake(window, food);
     GameBoard gameBoard;
 
     stbi_set_flip_vertically_on_load(true);
@@ -66,6 +66,7 @@ int main() {
     camera.setTarget(glm::vec3(0.0f, 0.0f, 0.0f));
 
     auto lastFrameTime = static_cast<float>(glfwGetTime());
+//    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
     while (!glfwWindowShouldClose(window)) {
         processInput(window);

@@ -23,8 +23,11 @@ void Snake::tick(float deltaTime) {
     timeSinceLastMove += deltaTime;
 
     if (timeSinceLastMove > 1.f / MOVES_PER_SECOND) {
-        z += heading == Heading::UP ? -1.f : ((heading == Heading::DOWN) ? 1.f : 0.f);
-        x += heading == Heading::RIGHT ? 1.f : ((heading == Heading::LEFT) ? -1.f : 0.f);
+        body.emplace_back(body.back());
+        body.erase(body.begin());
+        auto &pos = body.back();
+        pos.y += heading == Heading::UP ? -1.f : ((heading == Heading::DOWN) ? 1.f : 0.f);
+        pos.x += heading == Heading::RIGHT ? 1.f : ((heading == Heading::LEFT) ? -1.f : 0.f);
         timeSinceLastMove = 0.0f;
     }
 }
@@ -33,14 +36,19 @@ void Snake::draw(glm::mat4 &viewMatrix, glm::mat4 &projectionMatrix) {
     shader.use();
     glBindVertexArray(vao);
 
-    glm::mat4 modelMatrix = glm::mat4(1.0f);
-    modelMatrix = glm::translate(modelMatrix, glm::vec3(x, 0, z));
-    shader.setUniform("u_model", modelMatrix);
     shader.setUniform("u_view", viewMatrix);
     shader.setUniform("u_projection", projectionMatrix);
     shader.setUniform("u_borderColor", glm::vec4(0.2f, 0.4f, 0.8f, 1.0f));
     shader.setUniform("u_borderSize", 0.05f);
     shader.setUniform("u_fillColor", glm::vec4(0.4f, 0.5f, 1.0f, 1.0f));
+
+    for (auto &pos : body) {
+        glm::mat4 modelMatrix = glm::mat4(1.0f);
+        modelMatrix = glm::translate(modelMatrix, glm::vec3(pos.x, 0.0f, pos.y));
+        modelMatrix = glm::scale(modelMatrix, glm::vec3(0.9f, 0.9f, 0.9f));
+        shader.setUniform("u_model", modelMatrix);
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+    }
 
     glDrawArrays(GL_TRIANGLES, 0, 36);
 

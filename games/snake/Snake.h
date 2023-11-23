@@ -28,8 +28,7 @@ public:
 private:
     Shader shader;
 
-    float x = 0.0f;
-    float z = 0.0f;
+    std::vector<glm::vec2> body = {{0, 0}};
 
     Heading heading = Heading::UP;
 

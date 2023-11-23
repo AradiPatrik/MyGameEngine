@@ -13,6 +13,9 @@ add_executable(texture_lesson texture_lesson.cpp ${ENGINE_SOURCES})
 add_executable(transformations transformations.cpp ${ENGINE_SOURCES})
 add_executable(coordinate_systems coordinate_systems.cpp ${ENGINE_SOURCES})
 add_executable(moving_around moving_around.cpp ${ENGINE_SOURCES})
+add_executable(snake games/snake/SnakeGame.cpp ${ENGINE_SOURCES} games/snake/Snake.cpp games/snake/Snake.h
+        games/snake/GameBoard.cpp
+        games/snake/GameBoard.h)
 
 find_package(glfw3 REQUIRED)
 find_package(OpenGL REQUIRED)
@@ -30,6 +33,7 @@ target_link_libraries(texture_lesson glfw ${OPENGL_gl_LIBRARY} glm::glm)
 target_link_libraries(transformations glfw ${OPENGL_gl_LIBRARY} glm::glm)
 target_link_libraries(coordinate_systems glfw ${OPENGL_gl_LIBRARY} glm::glm)
 target_link_libraries(moving_around glfw ${OPENGL_gl_LIBRARY} glm::glm)
+target_link_libraries(snake glfw ${OPENGL_gl_LIBRARY} glm::glm)
 
 function(copy_resources_to_target target_name)
     add_custom_target(copy_shaders_${target_name} ALL
@@ -55,3 +59,4 @@ copy_resources_to_target(texture_lesson)
 copy_resources_to_target(transformations)
 copy_resources_to_target(coordinate_systems)
 copy_resources_to_target(moving_around)
+copy_resources_to_target(snake)

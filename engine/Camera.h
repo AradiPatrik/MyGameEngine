@@ -18,16 +18,22 @@ namespace Engine {
     class Camera {
     public:
         explicit Camera(GLFWwindow *window);
+        Camera(GLFWwindow *window, bool acceptsUserInput);
         void update(float deltaTime);
         glm::mat4 getViewMatrix() const;
+        glm::mat4 getProjectionMatrix() const;
+
+        void setPosition(const glm::vec3 &newPosition);
+        void setTarget(const glm::vec3 &newTarget);
 
     private:
         glm::vec3 position = glm::vec3(0.0f, 0.0f, 3.0f);
         glm::vec3 front = glm::vec3(0.0f, 0.0f, -1.0f);
         glm::vec3 right = glm::vec3(0.0f, 0.0f, 0.0f);
-        glm::vec3 target = glm::vec3(0.0f, 0.0f, 0.0f);
+        const glm::mat4 projectionMatrix = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
         const glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
         GLFWwindow *window;
+        bool acceptsUserInput = true;
 
         float yaw = -90.0f;
         float pitch = 0.0f;

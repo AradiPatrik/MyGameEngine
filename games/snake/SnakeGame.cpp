@@ -9,6 +9,7 @@
 #include "../../engine/Texture.h"
 #include "Snake.h"
 #include "GameBoard.h"
+#include "Food.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -51,6 +52,7 @@ int main() {
 
     glfwSetFramebufferSizeCallback(window, onResizeWindow);
 
+    Food food;
     Snake snake(window);
     GameBoard gameBoard;
 
@@ -87,6 +89,7 @@ int main() {
         auto projectionMatrix = camera.getProjectionMatrix();
         snake.draw(viewMatrix, projectionMatrix);
         gameBoard.draw(viewMatrix, projectionMatrix);
+        food.draw(viewMatrix, projectionMatrix);
 
         glfwSwapBuffers(window);
         glfwPollEvents();

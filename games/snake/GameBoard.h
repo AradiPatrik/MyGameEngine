@@ -16,8 +16,6 @@ public:
     void draw(glm::mat4 &viewMatrix, glm::mat4 &projectionMatrix);
 
 private:
-    static GLuint createQuadVao();
-
     Engine::Shader shader;
 
     GLuint quadVao;

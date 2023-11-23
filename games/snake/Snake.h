@@ -38,8 +38,6 @@ private:
 
     GLuint vao;
 
-    static GLuint createBoxVao();
-
     static const int MOVES_PER_SECOND = 2;
 };
 

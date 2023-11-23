@@ -15,7 +15,11 @@ add_executable(coordinate_systems coordinate_systems.cpp ${ENGINE_SOURCES})
 add_executable(moving_around moving_around.cpp ${ENGINE_SOURCES})
 add_executable(snake games/snake/SnakeGame.cpp ${ENGINE_SOURCES} games/snake/Snake.cpp games/snake/Snake.h
         games/snake/GameBoard.cpp
-        games/snake/GameBoard.h)
+        games/snake/GameBoard.h
+        games/snake/Food.cpp
+        games/snake/Food.h
+        games/snake/MeshUtils.cpp
+        games/snake/MeshUtils.h)
 
 find_package(glfw3 REQUIRED)
 find_package(OpenGL REQUIRED)

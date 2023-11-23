@@ -66,7 +66,6 @@ int main() {
     camera.setTarget(glm::vec3(0.0f, 0.0f, 0.0f));
 
     auto lastFrameTime = static_cast<float>(glfwGetTime());
-//    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
     while (!glfwWindowShouldClose(window)) {
         processInput(window);

@@ -14,28 +14,47 @@ Snake::Snake(GLFWwindow *window, Food &food) : window(window),
 
 void Snake::tick(float deltaTime) {
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
-        heading = Heading::UP;
+        if (heading != Heading::DOWN) {
+            pendingHeading = Heading::UP;
+        }
     } else if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
-        heading = Heading::RIGHT;
+        if (heading != Heading::LEFT) {
+            pendingHeading = Heading::RIGHT;
+        }
     } else if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
-        heading = Heading::LEFT;
+        if (heading != Heading::RIGHT) {
+            pendingHeading = Heading::LEFT;
+        }
     } else if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
-        heading = Heading::DOWN;
+        if (heading != Heading::UP) {
+            pendingHeading = Heading::DOWN;
+        }
     }
+
+    bool boosting = glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS;
 
     timeSinceLastMove += deltaTime;
 
-    if (timeSinceLastMove > 1.f / MOVES_PER_SECOND) {
+    if (timeSinceLastMove > 1.f / (boosting ? (MOVES_PER_SECOND * 2) : MOVES_PER_SECOND)) {
         body.emplace_back(body.back());
         auto &pos = body.back();
-        pos.y += heading == Heading::UP ? -1.f : ((heading == Heading::DOWN) ? 1.f : 0.f);
-        pos.x += heading == Heading::RIGHT ? 1.f : ((heading == Heading::LEFT) ? -1.f : 0.f);
+        pos.y += pendingHeading == Heading::UP ? -1.f : ((pendingHeading == Heading::DOWN) ? 1.f : 0.f);
+        pos.x += pendingHeading == Heading::RIGHT ? 1.f : ((pendingHeading == Heading::LEFT) ? -1.f : 0.f);
         if (pos.x == food.getPosition().x && pos.y == food.getPosition().y) {
             food.respawn();
         } else {
             body.erase(body.begin());
+
+            for (auto it = body.begin(); it != body.end() - 1; it++) {
+                if (it->x == pos.x && it->y == pos.y) {
+                    body.clear();
+                    body.emplace_back(0, 0);
+                    break;
+                }
+            }
         }
         timeSinceLastMove = 0.0f;
+        heading = pendingHeading;
     }
 }
 

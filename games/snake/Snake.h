@@ -32,6 +32,7 @@ private:
     std::vector<glm::vec2> body = {{0, 0}};
 
     Heading heading = Heading::UP;
+    Heading pendingHeading = Heading::UP;
 
     float timeSinceLastMove = 0.0f;
 

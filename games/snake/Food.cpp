@@ -24,8 +24,8 @@ void Food::draw(glm::mat4 &viewMatrix, glm::mat4 &projectionMatrix) {
 }
 
 void Food::respawn() {
-    position.x = (rand() % 20) - 10;
-    position.y = (rand() % 20) - 10;
+    position.x = (rand() % 14) - 7;
+    position.y = (rand() % 14) - 7;
 }
 
 glm::vec2 Food::getPosition() {

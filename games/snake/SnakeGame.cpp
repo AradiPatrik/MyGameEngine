@@ -62,7 +62,7 @@ int main() {
     glViewport(0, 0, 1600, 1200);
 
     auto camera = Engine::Camera(window, false);
-    camera.setPosition(glm::vec3(1.0f, 15.0f, 20.0f));
+    camera.setPosition(glm::vec3(1.0f, 24.0f, 20.0f));
     camera.setTarget(glm::vec3(0.0f, 0.0f, 0.0f));
 
     auto lastFrameTime = static_cast<float>(glfwGetTime());
@@ -81,7 +81,7 @@ int main() {
             }
         });
 
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        glClearColor(0.5f, 0.4f, 0.4f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         snake.tick(deltaTime);

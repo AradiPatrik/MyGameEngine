@@ -18,7 +18,10 @@ public:
 private:
     Engine::Shader shader;
 
+    Engine::Shader wallShader;
+
     GLuint quadVao;
+    GLuint boxVao;
 };
 
 

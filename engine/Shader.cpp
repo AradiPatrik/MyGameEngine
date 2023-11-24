@@ -83,14 +83,14 @@ namespace Engine {
     }
 
     void Shader::setUniform(const std::string &name, const glm::mat4 &value) const {
-        glUniformMatrix4fv(glGetUniformLocation(programId, name.c_str()), 1, GL_FALSE, glm::value_ptr(value));
+        glUniformMatrix4fv(glGetUniformLocation(programId, name.c_str()), 1, GL_FALSE, value_ptr(value));
     }
 
     void Shader::setUniform(const std::string &name, const glm::vec3 &value) const {
-        glUniform3fv(glGetUniformLocation(programId, name.c_str()), 1, glm::value_ptr(value));
+        glUniform3fv(glGetUniformLocation(programId, name.c_str()), 1, value_ptr(value));
     }
 
     void Shader::setUniform(const std::string &name, const glm::vec4 &value) const {
-        glUniform4fv(glGetUniformLocation(programId, name.c_str()), 1, glm::value_ptr(value));
+        glUniform4fv(glGetUniformLocation(programId, name.c_str()), 1, value_ptr(value));
     }
 } // Engine

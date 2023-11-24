@@ -55,13 +55,13 @@ namespace Engine {
                 sin(glm::radians(pitch)),
                 sin(glm::radians(yaw)) * cos(glm::radians(pitch))
         );
-        front = glm::normalize(direction);
-        right = glm::normalize(glm::cross(front, up));
+        front = normalize(direction);
+        right = normalize(cross(front, up));
     }
 
     glm::mat4 Camera::getViewMatrix() const {
         glm::mat4 view = glm::mat4(1.0f);
-        return glm::lookAt(
+        return lookAt(
                 position,
                 position + front,
                 up
@@ -79,7 +79,7 @@ namespace Engine {
     }
 
     void Camera::setTarget(const glm::vec3 &newTarget) {
-        front = glm::normalize(newTarget - position);
+        front = normalize(newTarget - position);
 
         pitch = glm::degrees(asin(front.y));
 //        yaw = glm::degrees(atan2(front.x, front.z));

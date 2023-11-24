@@ -17,8 +17,8 @@ void Food::draw(glm::mat4 &viewMatrix, glm::mat4 &projectionMatrix) {
     shader.setUniform("u_borderSize", 0.05f);
 
     glm::mat4 modelMatrix = glm::mat4(1.0f);
-    modelMatrix = glm::translate(modelMatrix, glm::vec3(position.x, 0.f,  position.y));
-    modelMatrix = glm::scale(modelMatrix, glm::vec3(0.9f, 0.9f, 0.9f));
+    modelMatrix = translate(modelMatrix, glm::vec3(position.x, 0.f,  position.y));
+    modelMatrix = scale(modelMatrix, glm::vec3(0.9f, 0.9f, 0.9f));
 
     MeshUtils::drawBox(shader, vao, modelMatrix, viewMatrix, projectionMatrix);
 }

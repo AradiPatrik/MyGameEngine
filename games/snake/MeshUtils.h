@@ -12,14 +12,17 @@
 
 using namespace Engine;
 
-namespace MeshUtils {
+namespace MeshUtils
+{
     GLuint createQuadVao();
 
     GLuint createBoxVao();
 
-    void drawQuad(Shader& shader, GLuint vao, glm::mat4& modelMatrix, glm::mat4& viewMatrix, glm::mat4& projectionMatrix);
+    void drawQuad(Shader& shader, GLuint vao, glm::mat4& modelMatrix, glm::mat4& viewMatrix,
+                  glm::mat4& projectionMatrix);
 
-    void drawBox(Shader& shader, GLuint vao, glm::mat4& modelMatrix, glm::mat4& viewMatrix, glm::mat4& projectionMatrix);
+    void drawBox(Shader& shader, GLuint vao, glm::mat4& modelMatrix, glm::mat4& viewMatrix,
+                 glm::mat4& projectionMatrix);
 }
 
 

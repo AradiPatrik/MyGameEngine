@@ -4,6 +4,7 @@
 
 #include "GameBoard.h"
 #include "MeshUtils.h"
+#include "glm/gtx/transform.hpp"
 
 GameBoard::GameBoard():
     shader("shaders/snake/gameboard/vertex.glsl", "shaders/snake/gameboard/fragment.glsl"),

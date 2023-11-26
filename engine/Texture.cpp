@@ -3,6 +3,9 @@
 //
 
 #include "Texture.h"
+
+#include <stdexcept>
+
 #include "stb_image.h"
 
 namespace Engine {

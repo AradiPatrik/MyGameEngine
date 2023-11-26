@@ -2,13 +2,12 @@
 // Created by Patrik Aradi on 2023/11/23.
 //
 
-#include <GLFW/glfw3.h>
+#ifndef OPENGL_PLAYGROUND_FOOD_H
+#define OPENGL_PLAYGROUND_FOOD_H
+
 #include "../../engine/Shader.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-
-#ifndef OPENGL_PLAYGROUND_FOOD_H
-#define OPENGL_PLAYGROUND_FOOD_H
 
 using namespace Engine;
 

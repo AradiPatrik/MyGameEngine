@@ -1,15 +1,18 @@
 #define GL_SILENCE_DEPRECATION
 
-#include <iostream>
+#define GLFW_INCLUDE_NONE
+#ifdef __APPLE__
 #include <OpenGL/gl3.h>
+#else
+#include <glad/glad.h>
+#endif
+#include <iostream>
 #include <GLFW/glfw3.h>
 #include "../../engine/Shader.h"
 #include "../../engine/Camera.h"
 #include "stb_image.h"
-#include "../../engine/Texture.h"
 #include "Snake.h"
 #include "GameBoard.h"
-#include "Food.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -55,6 +58,12 @@ int main()
 
     glfwMakeContextCurrent(window);
 
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+    {
+        std::cout << "Failed to initialize GLAD" << std::endl;
+        return -1;
+    }
+
     glfwSetFramebufferSizeCallback(window, onResizeWindow);
 
     Food food;
@@ -64,7 +73,7 @@ int main()
     stbi_set_flip_vertically_on_load(true);
     glEnable(GL_DEPTH_TEST);
 
-    glViewport(0, 0, 1600, 1200);
+    glViewport(0, 0, 800, 600);
 
     auto camera = Camera(window, false);
     camera.setPosition(glm::vec3(1.0f, 24.0f, 20.0f));

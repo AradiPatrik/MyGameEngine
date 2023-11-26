@@ -6,7 +6,11 @@
 #define OPENGL_PLAYGROUND_CAMERA_H
 
 #include <glm/vec3.hpp>
+#ifdef __APPLE__
 #include <OpenGL/gl3.h>
+#else
+#include <glad/glad.h>
+#endif
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>

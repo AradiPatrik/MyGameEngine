@@ -5,6 +5,8 @@
 #ifndef OPENGL_PLAYGROUND_SNAKE_H
 #define OPENGL_PLAYGROUND_SNAKE_H
 
+#include <vector>
+#define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
 #include "../../engine/Shader.h"
 #include "Food.h"

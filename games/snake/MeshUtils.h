@@ -5,10 +5,8 @@
 #ifndef OPENGL_PLAYGROUND_MESHUTILS_H
 #define OPENGL_PLAYGROUND_MESHUTILS_H
 
-#include <GLFW/glfw3.h>
 #include "../../engine/Shader.h"
 #include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
 
 using namespace Engine;
 

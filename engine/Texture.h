@@ -6,7 +6,11 @@
 #define OPENGL_PLAYGROUND_TEXTURE_H
 
 #include <string>
+#ifdef __APPLE__
 #include <OpenGL/gl3.h>
+#else
+#include <glad/glad.h>
+#endif
 
 namespace Engine {
     class Texture {

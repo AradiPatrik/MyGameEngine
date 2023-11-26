@@ -6,8 +6,11 @@
 #define OPENGL_PLAYGROUND_SHADER_H
 
 #define GL_SILENCE_DEPRECATION
-#include <iostream>
+#ifdef __APPLE__
 #include <OpenGL/gl3.h>
+#else
+#include <glad/glad.h>
+#endif
 #include <fstream>
 #include <glm/glm.hpp>
 

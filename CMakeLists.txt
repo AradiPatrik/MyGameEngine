@@ -21,7 +21,15 @@ add_executable(snake games/snake/SnakeGame.cpp ${ENGINE_SOURCES} games/snake/Sna
         games/snake/MeshUtils.cpp
         games/snake/MeshUtils.h)
 
-find_package(glfw3 REQUIRED)
+if (WIN32)
+    set(CMAKE_PREFIX_PATH
+            "C:\\Users\\Taipei Home\\.vcpkg-clion\\vcpkg\\packages\\glfw3_x64-mingw-dynamic\\share\\glfw3"
+            "C:\\Users\\Taipei Home\\.vcpkg-clion\\vcpkg\\packages\\glad_x64-mingw-dynamic\\share\\glad"
+    )
+    find_package(glad CONFIG REQUIRED)
+endif()
+
+find_package(glfw3 CONFIG REQUIRED)
 find_package(OpenGL REQUIRED)
 
 set(glm_DIR libs/glm/cmake/glm) # if necessary
@@ -30,14 +38,26 @@ find_package(glm REQUIRED)
 include_directories(${CMAKE_SOURCE_DIR}/include)
 include_directories(${OPENGL_INCLUDE_DIR})
 
-target_link_libraries(opengl_playground glfw ${OPENGL_gl_LIBRARY} glm::glm)
-target_link_libraries(exercise_1 glfw ${OPENGL_gl_LIBRARY} glm::glm)
-target_link_libraries(shader_lesson glfw ${OPENGL_gl_LIBRARY} glm::glm)
-target_link_libraries(texture_lesson glfw ${OPENGL_gl_LIBRARY} glm::glm)
-target_link_libraries(transformations glfw ${OPENGL_gl_LIBRARY} glm::glm)
-target_link_libraries(coordinate_systems glfw ${OPENGL_gl_LIBRARY} glm::glm)
-target_link_libraries(moving_around glfw ${OPENGL_gl_LIBRARY} glm::glm)
-target_link_libraries(snake glfw ${OPENGL_gl_LIBRARY} glm::glm)
+# Link against OpenGL and glm for all platforms
+foreach(target
+        opengl_playground
+        exercise_1
+        shader_lesson
+        texture_lesson
+        transformations
+        coordinate_systems
+        moving_around
+        snake)
+
+    target_link_libraries(${target} PRIVATE glfw ${OPENGL_gl_LIBRARY} glm::glm glad)
+
+    # Add glad only for Windows
+    if (WIN32)
+        target_link_libraries(${target} PRIVATE glad)
+        target_link_directories(snake PRIVATE "C:\\Users\\Taipei Home\\.vcpkg-clion\\vcpkg\\packages\\glad_x64-mingw-dynamic\\lib")
+        target_include_directories(${target} PRIVATE "C:\\Users\\Taipei Home\\.vcpkg-clion\\vcpkg\\packages\\glad_x64-mingw-dynamic\\include")
+    endif()
+endforeach()
 
 function(copy_resources_to_target target_name)
     add_custom_target(copy_shaders_${target_name} ALL

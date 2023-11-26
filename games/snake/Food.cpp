@@ -3,7 +3,7 @@
 //
 
 #include "Food.h"
-#include "MeshUtils.h"
+#include "../../engine/MeshUtils.h"
 
 Food::Food(): shader("shaders/snake/food/vertex.glsl", "shaders/snake/food/fragment.glsl") {
     vao = MeshUtils::createBoxVao();

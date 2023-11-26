@@ -18,16 +18,16 @@ add_executable(snake games/snake/SnakeGame.cpp ${ENGINE_SOURCES} games/snake/Sna
         games/snake/GameBoard.h
         games/snake/Food.cpp
         games/snake/Food.h
-        games/snake/MeshUtils.cpp
-        games/snake/MeshUtils.h)
+)
+add_executable(colors colors.cpp ${LIGHT_SOURCES} ${ENGINE_SOURCES})
 
 if (WIN32)
     set(CMAKE_PREFIX_PATH
             "C:\\Users\\Taipei Home\\.vcpkg-clion\\vcpkg\\packages\\glfw3_x64-mingw-dynamic\\share\\glfw3"
             "C:\\Users\\Taipei Home\\.vcpkg-clion\\vcpkg\\packages\\glad_x64-mingw-dynamic\\share\\glad"
     )
-    find_package(glad CONFIG REQUIRED)
-endif()
+    find_package(glad REQUIRED)
+endif ()
 
 find_package(glfw3 CONFIG REQUIRED)
 find_package(OpenGL REQUIRED)
@@ -39,7 +39,7 @@ include_directories(${CMAKE_SOURCE_DIR}/include)
 include_directories(${OPENGL_INCLUDE_DIR})
 
 # Link against OpenGL and glm for all platforms
-foreach(target
+foreach (target
         opengl_playground
         exercise_1
         shader_lesson
@@ -47,17 +47,18 @@ foreach(target
         transformations
         coordinate_systems
         moving_around
-        snake)
+        snake
+        colors)
 
     target_link_libraries(${target} PRIVATE glfw ${OPENGL_gl_LIBRARY} glm::glm glad)
 
     # Add glad only for Windows
     if (WIN32)
         target_link_libraries(${target} PRIVATE glad)
-        target_link_directories(snake PRIVATE "C:\\Users\\Taipei Home\\.vcpkg-clion\\vcpkg\\packages\\glad_x64-mingw-dynamic\\lib")
+        target_link_directories(${target} PRIVATE "C:\\Users\\Taipei Home\\.vcpkg-clion\\vcpkg\\packages\\glad_x64-mingw-dynamic\\lib")
         target_include_directories(${target} PRIVATE "C:\\Users\\Taipei Home\\.vcpkg-clion\\vcpkg\\packages\\glad_x64-mingw-dynamic\\include")
-    endif()
-endforeach()
+    endif ()
+endforeach ()
 
 function(copy_resources_to_target target_name)
     add_custom_target(copy_shaders_${target_name} ALL
@@ -84,3 +85,4 @@ copy_resources_to_target(transformations)
 copy_resources_to_target(coordinate_systems)
 copy_resources_to_target(moving_around)
 copy_resources_to_target(snake)
+copy_resources_to_target(colors)

@@ -2,7 +2,7 @@
 // Created by Patrik Aradi on 2023/11/23.
 //
 
-#include "MeshUtils.h"
+#include "../engine/MeshUtils.h"
 
 GLuint MeshUtils::createBoxVao()
 {

@@ -3,7 +3,7 @@
 //
 
 #include "Snake.h"
-#include "MeshUtils.h"
+#include "../../engine/MeshUtils.h"
 
 Snake::Snake(GLFWwindow* window, Food& food) : window(window),
                                                shader("shaders/snake/snake/vertex.glsl",

@@ -3,7 +3,7 @@
 //
 
 #include "GameBoard.h"
-#include "MeshUtils.h"
+#include "../../engine/MeshUtils.h"
 #include "glm/gtx/transform.hpp"
 
 GameBoard::GameBoard():

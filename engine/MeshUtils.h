@@ -5,8 +5,8 @@
 #ifndef OPENGL_PLAYGROUND_MESHUTILS_H
 #define OPENGL_PLAYGROUND_MESHUTILS_H
 
-#include "../../engine/Shader.h"
-#include <glm/glm.hpp>
+#include "Shader.h"
+#include <../libs/glm/glm/glm.hpp>
 
 using namespace Engine;
 

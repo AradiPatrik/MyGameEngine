@@ -50,7 +50,7 @@ foreach (target
         snake
         colors)
 
-    target_link_libraries(${target} PRIVATE glfw ${OPENGL_gl_LIBRARY} glm::glm glad)
+    target_link_libraries(${target} PRIVATE glfw ${OPENGL_gl_LIBRARY} glm::glm)
 
     # Add glad only for Windows
     if (WIN32)

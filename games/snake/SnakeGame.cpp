@@ -58,11 +58,13 @@ int main()
 
     glfwMakeContextCurrent(window);
 
+#ifndef __APPLE__
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {
         std::cout << "Failed to initialize GLAD" << std::endl;
         return -1;
     }
+#endif
 
     glfwSetFramebufferSizeCallback(window, onResizeWindow);
 

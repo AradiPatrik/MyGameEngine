@@ -5,6 +5,7 @@ set(CMAKE_CXX_STANDARD 11)
 
 # Collect all source files from the 'engine' directory
 file(GLOB ENGINE_SOURCES "engine/*.cpp" "engine/*.h")
+file(GLOB LIGHTING_SOURCES "tutorials/lighting/*.cpp" "tutorials/lighting/*.h")
 
 add_executable(opengl_playground main.cpp ${ENGINE_SOURCES})
 add_executable(exercise_1 exercise_1.cpp ${ENGINE_SOURCES})
@@ -19,7 +20,7 @@ add_executable(snake games/snake/SnakeGame.cpp ${ENGINE_SOURCES} games/snake/Sna
         games/snake/Food.cpp
         games/snake/Food.h
 )
-add_executable(colors colors.cpp ${LIGHT_SOURCES} ${ENGINE_SOURCES})
+add_executable(colors ${LIGHTING_SOURCES} ${ENGINE_SOURCES})
 
 if (WIN32)
     set(CMAKE_PREFIX_PATH

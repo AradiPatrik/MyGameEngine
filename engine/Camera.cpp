@@ -4,30 +4,33 @@
 
 #include "Camera.h"
 #include "Shader.h"
+#include "Window.h"
+
+class Window;
 
 namespace Engine {
-    Camera::Camera(GLFWwindow *window, bool acceptsUserInput) : window(window), acceptsUserInput(acceptsUserInput) {}
+    Camera::Camera(const Window &window, bool acceptsUserInput) : window(window), acceptsUserInput(acceptsUserInput) {}
 
     void Camera::update(const float deltaTime) {
         if (acceptsUserInput) {
-            if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
+            if (window.isKeyPressed(GLFW_KEY_W)) {
                 position += front * deltaTime * speed;
             }
 
-            if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
+            if (window.isKeyPressed(GLFW_KEY_S)) {
                 position -= front * deltaTime * speed;
             }
 
-            if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
+            if (window.isKeyPressed(GLFW_KEY_A)) {
                 position -= right * deltaTime * speed;
             }
 
-            if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
+            if (window.isKeyPressed(GLFW_KEY_D)) {
                 position += right * deltaTime * speed;
             }
 
             double mouseX, mouseY;
-            glfwGetCursorPos(window, &mouseX, &mouseY);
+            window.getCursorPosition(mouseX, mouseY);
 
             float xOffset = static_cast<float>(mouseX) - lastX;
             float yOffset = lastY - static_cast<float>(mouseY);
@@ -72,7 +75,7 @@ namespace Engine {
         position = newPosition;
     }
 
-    Camera::Camera(GLFWwindow *window): Camera(window, true) { }
+    Camera::Camera(const Window &window): Camera(window, true) { }
 
     glm::mat4 Camera::getProjectionMatrix() const {
         return projectionMatrix;

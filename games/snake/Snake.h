@@ -13,11 +13,12 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
+class Window;
 using namespace Engine;
 
 class Snake {
 public:
-    explicit Snake(GLFWwindow *window, Food& food);
+    explicit Snake(const Window &window, Food& food);
 
     void tick(float deltaTime);
     void draw(glm::mat4 &viewMatrix, glm::mat4 &projectionMatrix);
@@ -38,7 +39,7 @@ private:
 
     float timeSinceLastMove = 0.0f;
 
-    GLFWwindow *window;
+    const Window &window;
 
     GLuint vao;
 

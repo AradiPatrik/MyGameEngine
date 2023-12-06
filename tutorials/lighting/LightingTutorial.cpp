@@ -8,9 +8,9 @@
 #endif
 #include <iostream>
 #include <GLFW/glfw3.h>
-#include "engine/Shader.h"
-#include "engine/Camera.h"
-#include "include/stb_image.h"
+#include "../engine/Shader.h"
+#include "../engine/Camera.h"
+#include "../include/stb_image.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -55,21 +55,23 @@ int main()
     }
 
     glfwMakeContextCurrent(window);
-
+#ifndef __APPLE__
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {
         std::cout << "Failed to initialize GLAD" << std::endl;
         return -1;
     }
-
+#endif
     glfwSetFramebufferSizeCallback(window, onResizeWindow);
 
+    int initialFrameBufferWidth, initialFrameBufferHeight;
+    glfwGetFramebufferSize(window, &initialFrameBufferWidth, &initialFrameBufferHeight);
 
 
     stbi_set_flip_vertically_on_load(true);
     glEnable(GL_DEPTH_TEST);
 
-    glViewport(0, 0, 800, 600);
+    glViewport(0, 0, initialFrameBufferWidth, initialFrameBufferHeight);
 
     auto camera = Engine::Camera(window, false);
     camera.setPosition(glm::vec3(1.0f, 24.0f, 20.0f));

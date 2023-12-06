@@ -4,39 +4,40 @@
 
 #include "Snake.h"
 #include "../../engine/MeshUtils.h"
+#include "../../engine/Window.h"
 
-Snake::Snake(GLFWwindow* window, Food& food) : window(window),
-                                               shader("shaders/snake/snake/vertex.glsl",
-                                                      "shaders/snake/snake/fragment.glsl"),
-                                               food(food)
+Snake::Snake(const Window& window, Food& food) : window(window),
+                                                 shader("shaders/snake/snake/vertex.glsl",
+                                                        "shaders/snake/snake/fragment.glsl"),
+                                                 food(food)
 {
     vao = MeshUtils::createBoxVao();
 }
 
 void Snake::tick(float deltaTime)
 {
-    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+    if (window.isKeyPressed(GLFW_KEY_W))
     {
         if (heading != Heading::DOWN)
         {
             pendingHeading = Heading::UP;
         }
     }
-    else if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+    else if (window.isKeyPressed(GLFW_KEY_D))
     {
         if (heading != Heading::LEFT)
         {
             pendingHeading = Heading::RIGHT;
         }
     }
-    else if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+    else if (window.isKeyPressed(GLFW_KEY_A))
     {
         if (heading != Heading::RIGHT)
         {
             pendingHeading = Heading::LEFT;
         }
     }
-    else if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+    else if (window.isKeyPressed(GLFW_KEY_S))
     {
         if (heading != Heading::UP)
         {
@@ -44,7 +45,7 @@ void Snake::tick(float deltaTime)
         }
     }
 
-    bool boosting = glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS;
+    const bool boosting = window.isKeyPressed(GLFW_KEY_LEFT_SHIFT);
 
     timeSinceLastMove += deltaTime;
 

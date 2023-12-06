@@ -16,13 +16,15 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 
+class Window;
+
 namespace Engine {
     class Shader;
 
     class Camera {
     public:
-        explicit Camera(GLFWwindow *window);
-        Camera(GLFWwindow *window, bool acceptsUserInput);
+        explicit Camera(const Window &window);
+        Camera(const Window &window, bool acceptsUserInput);
         void update(float deltaTime);
         glm::mat4 getViewMatrix() const;
         glm::mat4 getProjectionMatrix() const;
@@ -36,7 +38,7 @@ namespace Engine {
         glm::vec3 right = glm::vec3(0.0f, 0.0f, 0.0f);
         const glm::mat4 projectionMatrix = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
         const glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
-        GLFWwindow *window;
+        const Window &window;
         bool acceptsUserInput = true;
 
         float yaw = -90.0f;

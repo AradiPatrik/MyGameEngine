@@ -16,11 +16,9 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 
-class Window;
-
 namespace Engine {
     class Shader;
-
+    class Window;
     class Camera {
     public:
         explicit Camera(const Window &window);

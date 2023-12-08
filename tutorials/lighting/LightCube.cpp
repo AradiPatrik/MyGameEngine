@@ -24,3 +24,8 @@ void LightCube::setPosition(const glm::vec3& newPosition)
 {
     position = newPosition;
 }
+
+const glm::vec3& LightCube::getPosition() const
+{
+    return position;
+}

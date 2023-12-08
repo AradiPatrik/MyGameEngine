@@ -26,8 +26,7 @@ int main()
     auto lastFrameTime = static_cast<float>(glfwGetTime());
 
     LightCube light;
-    light.setPosition(glm::vec3(2, 2, 2));
-    LitCube litCube(glm::vec3(1.f, 0.5f, 0.38f), glm::vec3(1.0f, 1.0f, 1.0f));
+    LitCube litCube(glm::vec3(1.f, 0.5f, 0.38f), glm::vec3(1.0f, 1.0f, 1.0f), light, camera);
 
     while (!window.shouldClose())
     {
@@ -35,6 +34,7 @@ int main()
         const auto deltaTime = thisFrameTime - lastFrameTime;
         lastFrameTime = thisFrameTime;
 
+        light.setPosition(glm::vec3(sin(glfwGetTime()) * 8, 2.0, cos(glfwGetTime()) * 8));
         camera.update(deltaTime);
         glClearColor(0.5f, 0.4f, 0.4f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

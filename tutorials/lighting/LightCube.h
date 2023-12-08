@@ -15,6 +15,7 @@ public:
     LightCube();
     void draw(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix);
     void setPosition(const glm::vec3& newPosition);
+    const glm::vec3 &getPosition() const;
 
 private:
     GLuint vao;

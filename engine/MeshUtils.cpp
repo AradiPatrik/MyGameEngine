@@ -141,8 +141,8 @@ void MeshUtils::drawQuad(Shader& shader, GLuint vao, glm::mat4& modelMatrix, glm
         glBindVertexArray(0);
 }
 
-void MeshUtils::drawBox(Shader& shader, GLuint vao, glm::mat4& modelMatrix, glm::mat4& viewMatrix,
-                        glm::mat4& projectionMatrix)
+void MeshUtils::drawBox(Shader& shader, const GLuint vao, const glm::mat4& modelMatrix, const glm::mat4& viewMatrix,
+                        const glm::mat4& projectionMatrix)
 {
         shader.use();
         glBindVertexArray(vao);

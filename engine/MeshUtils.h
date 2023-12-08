@@ -19,8 +19,8 @@ namespace MeshUtils
     void drawQuad(Shader& shader, GLuint vao, glm::mat4& modelMatrix, glm::mat4& viewMatrix,
                   glm::mat4& projectionMatrix);
 
-    void drawBox(Shader& shader, GLuint vao, glm::mat4& modelMatrix, glm::mat4& viewMatrix,
-                 glm::mat4& projectionMatrix);
+    void drawBox(Shader& shader, GLuint vao, const glm::mat4& modelMatrix, const glm::mat4& viewMatrix,
+                 const glm::mat4& projectionMatrix);
 }
 
 

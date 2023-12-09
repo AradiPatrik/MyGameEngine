@@ -37,3 +37,8 @@ void LitCube::draw(glm::mat4& viewMatrix, glm::mat4& projectionMatrix)
     shader.setUniform("u_lightColor", lightColor);
     MeshUtils::drawBox(shader, vao, modelMatrix, viewMatrix, projectionMatrix);
 }
+
+void LitCube::setPosition(const glm::vec3& newPosition)
+{
+    position = newPosition;
+}

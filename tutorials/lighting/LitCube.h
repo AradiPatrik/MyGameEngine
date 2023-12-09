@@ -21,8 +21,9 @@ class LitCube {
 public:
     LitCube(const glm::vec3& cubeColor, const glm::vec3& lightColor, const LightCube& light, const Engine::Camera& camera);
     void draw(glm::mat4 &viewMatrix, glm::mat4 &projectionMatrix);
+    void setPosition(const glm::vec3 &newPosition);
 
-private:
+protected:
     GLuint vao;
 
     Engine::Shader shader;

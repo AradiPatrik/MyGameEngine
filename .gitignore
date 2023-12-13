@@ -1,2 +1,4 @@
 cmake-build-debug
 +cmake ..
+/.idea/editor.xml
+/.idea/.name

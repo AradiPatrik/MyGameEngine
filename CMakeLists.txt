@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.26)
 project(opengl_playground)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 
 # Collect all source files from the 'engine' directory
 file(GLOB ENGINE_SOURCES "engine/*.cpp" "engine/*.h")

@@ -15,6 +15,8 @@
 #include "GouraudLitCube.h"
 #include "LightCube.h"
 #include "LitCube.h"
+#include "MaterialCube.h"
+#include "../../engine/Materials.h"
 #include "../../engine/MeshUtils.h"
 
 int main()
@@ -28,8 +30,10 @@ int main()
 
     LightCube light;
     GouraudLitCube gouraudCube(glm::vec3(1.f, 0.5f, 0.38f), glm::vec3(1.0f, 0.5f, 1.0f), light, camera);
+    MaterialCube materialCube(glm::vec3(2.f, 0.25f, 0.8f), glm::vec3(1.0f, 0.5f, 1.0f), light, camera, emerald);
     LitCube litCube(glm::vec3(1.f, 0.5f, 0.38f), glm::vec3(1.0f, 0.5f, 1.0f), light, camera);
     litCube.setPosition(glm::vec3(1.f, 1.f, 1.5f));
+    materialCube.setPosition(glm::vec3(2.f, 2.f, 2.5f));
 
     while (!window.shouldClose())
     {
@@ -48,6 +52,7 @@ int main()
         gouraudCube.draw(viewMatrix, projectionMatrix);
         light.draw(viewMatrix, projectionMatrix);
         litCube.draw(viewMatrix, projectionMatrix);
+        materialCube.draw(viewMatrix, projectionMatrix);
 
         window.tick();
         camera.update(deltaTime);

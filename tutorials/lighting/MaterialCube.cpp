@@ -37,10 +37,8 @@ void MaterialCube::draw(const glm::mat4& viewMatrix, const glm::mat4& projection
     auto modelMatrix = glm::mat4(1.0f);
     modelMatrix = translate(modelMatrix, position);
     material.bindToShader(shader);
-    shader.setUniform("u_lightPosition", light.getPosition());
+    light.bindToShader(shader);
     shader.setUniform("u_viewPosition", camera.getPosition());
-    shader.setUniform("u_objectColor", cubeColor);
-    shader.setUniform("u_lightColor", lightColor);
     MeshUtils::drawBox(shader, vao, modelMatrix, viewMatrix, projectionMatrix);
 }
 

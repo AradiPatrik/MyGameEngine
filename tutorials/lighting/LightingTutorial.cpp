@@ -17,18 +17,21 @@
 #include "LitCube.h"
 #include "MaterialCube.h"
 #include "../../engine/Materials.h"
-#include "../../engine/MeshUtils.h"
 
 int main()
 {
-    const auto window = Window(600, 800);
-    auto camera = Camera(window, true);
+    const auto window = Engine::Window(600, 800);
+    auto camera = Engine::Camera(window, true);
     camera.setPosition(glm::vec3(1.0f, 24.0f, 20.0f));
     camera.setTarget(glm::vec3(0.0f, 0.0f, 0.0f));
 
     auto lastFrameTime = static_cast<float>(glfwGetTime());
 
-    LightCube light;
+    LightCube light(PhongLightProperties(
+        glm::vec3(1.0f, 1.0f, 1.0f),
+        glm::vec3(1.0f, 1.0f, 1.0f),
+        glm::vec3(1.0f, 1.0f, 1.0f)
+    ));
     GouraudLitCube gouraudCube(glm::vec3(1.f, 0.5f, 0.38f), glm::vec3(1.0f, 0.5f, 1.0f), light, camera);
     MaterialCube materialCube(glm::vec3(2.f, 0.25f, 0.8f), glm::vec3(1.0f, 0.5f, 1.0f), light, camera, emerald);
     LitCube litCube(glm::vec3(1.f, 0.5f, 0.38f), glm::vec3(1.0f, 0.5f, 1.0f), light, camera);

@@ -6,10 +6,11 @@
 
 #include "../../engine/MeshUtils.h"
 
-LightCube::LightCube(): shader("shaders/tutorial_lighting/light_cube/vertex.glsl",
+LightCube::LightCube(const PhongLightProperties& lightProperties): shader("shaders/tutorial_lighting/light_cube/vertex.glsl",
                                "shaders/tutorial_lighting/light_cube/fragment.glsl"),
                         position(0, 0, 0),
-                        vao(MeshUtils::createBoxVao())
+                        vao(MeshUtils::createBoxVao()),
+                        phongLightProperties(lightProperties)
 {
 }
 
@@ -28,4 +29,17 @@ void LightCube::setPosition(const glm::vec3& newPosition)
 const glm::vec3& LightCube::getPosition() const
 {
     return position;
+}
+
+const PhongLightProperties& LightCube::getLightProperties() const
+{
+    return phongLightProperties;
+}
+
+void LightCube::bindToShader(const Shader& shader) const
+{
+    shader.setUniform("u_lightPosition", position);
+    shader.setUniform("u_light.ambient", phongLightProperties.ambient);
+    shader.setUniform("u_light.diffuse", phongLightProperties.diffuse);
+    shader.setUniform("u_light.specular", phongLightProperties.specular);
 }

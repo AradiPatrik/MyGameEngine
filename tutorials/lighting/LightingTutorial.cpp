@@ -6,9 +6,7 @@
 #else
 #include <glad/glad.h>
 #endif
-#include <GLFW/glfw3.h>
 #include "../engine/Camera.h"
-#include "../engine/Window.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
@@ -18,6 +16,8 @@
 #include "LitCube.h"
 #include "MaterialCube.h"
 #include "../../engine/Materials.h"
+#include <GLFW/glfw3.h>
+#include "../engine/Window.h"
 
 int main()
 {

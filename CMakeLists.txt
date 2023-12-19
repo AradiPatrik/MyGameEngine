@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.26)
+cmake_minimum_required(VERSION 3.27)
 project(opengl_playground)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -23,11 +23,7 @@ add_executable(snake games/snake/SnakeGame.cpp ${ENGINE_SOURCES} games/snake/Sna
 add_executable(colors ${LIGHTING_SOURCES} ${ENGINE_SOURCES})
 
 if (WIN32)
-    set(CMAKE_PREFIX_PATH
-            "C:\\Users\\Taipei Home\\.vcpkg-clion\\vcpkg\\packages\\glfw3_x64-mingw-dynamic\\share\\glfw3"
-            "C:\\Users\\Taipei Home\\.vcpkg-clion\\vcpkg\\packages\\glad_x64-mingw-dynamic\\share\\glad"
-    )
-    find_package(glad REQUIRED)
+    find_package(glad CONFIG REQUIRED)
 endif ()
 
 find_package(glfw3 CONFIG REQUIRED)
@@ -55,9 +51,7 @@ foreach (target
 
     # Add glad only for Windows
     if (WIN32)
-        target_link_libraries(${target} PRIVATE glad)
-        target_link_directories(${target} PRIVATE "C:\\Users\\Taipei Home\\.vcpkg-clion\\vcpkg\\packages\\glad_x64-mingw-dynamic\\lib")
-        target_include_directories(${target} PRIVATE "C:\\Users\\Taipei Home\\.vcpkg-clion\\vcpkg\\packages\\glad_x64-mingw-dynamic\\include")
+        target_link_libraries(${target} PRIVATE glad::glad)
     endif ()
 endforeach ()
 

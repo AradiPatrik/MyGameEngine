@@ -4,9 +4,9 @@
 
 #include "MaterialCube.h"
 
+#include "../../engine/Camera.h"
 #include "LightCube.h"
 #include "../../engine/MeshUtils.h"
-#include "../../engine/Camera.h"
 #include "../../engine/Materials.h"
 
 struct Material;

@@ -5,11 +5,11 @@
 #ifndef LIGHTMAPCUBE_H
 #define LIGHTMAPCUBE_H
 
+#include "../../engine/Texture.h"
 #include "../../engine/Shader.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-#include "../../engine/Texture.h"
 
 struct Material;
 

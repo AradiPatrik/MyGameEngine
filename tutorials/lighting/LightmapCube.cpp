@@ -3,13 +3,9 @@
 //
 
 #include "LightmapCube.h"
-
-#include "LightmapCube.h"
-
 #include "LightCube.h"
 #include "../../engine/MeshUtils.h"
 #include "../../engine/Camera.h"
-#include "../../engine/Materials.h"
 
 struct Material;
 

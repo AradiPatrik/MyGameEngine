@@ -29,7 +29,6 @@ endif ()
 find_package(glfw3 CONFIG REQUIRED)
 find_package(OpenGL REQUIRED)
 
-set(glm_DIR libs/glm/cmake/glm) # if necessary
 find_package(glm REQUIRED)
 
 include_directories(${CMAKE_SOURCE_DIR}/include)

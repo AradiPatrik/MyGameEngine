@@ -6,7 +6,6 @@
 #define OPENGL_PLAYGROUND_MESHUTILS_H
 
 #include "Shader.h"
-#include <../libs/glm/glm/glm.hpp>
 
 using namespace Engine;
 

@@ -6,6 +6,7 @@
 
 #include <stdexcept>
 
+#include "Shader.h"
 #include "stb_image.h"
 
 namespace Engine {
@@ -49,5 +50,12 @@ namespace Engine {
     void Texture::bind(GLenum position) const {
         glActiveTexture(position);
         glBindTexture(GL_TEXTURE_2D, textureId);
+    }
+
+    void Texture::bind(const Shader& shader, GLenum position, const std::string& uniformName) const
+    {
+        shader.use();
+        shader.setUniform(uniformName, static_cast<GLint>(position - GL_TEXTURE0));
+        bind(position);
     }
 }

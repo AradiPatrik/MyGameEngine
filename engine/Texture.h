@@ -12,18 +12,21 @@
 #include <glad/glad.h>
 #endif
 
-namespace Engine {
-    class Texture {
-    private:
+namespace Engine
+{
+    class Shader;
+
+    class Texture
+    {
         GLuint textureId;
 
     public:
-        explicit Texture(const std::string &path);
+        explicit Texture(const std::string& path);
 
         void bind() const;
         void bind(GLenum position) const;
+        void bind(const Shader& shader, GLenum position, const std::string& uniformName) const;
     };
-
 }
 
 

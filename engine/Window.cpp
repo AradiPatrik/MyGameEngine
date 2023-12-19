@@ -5,6 +5,7 @@
 #include "Window.h"
 
 #include <iostream>
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 namespace Engine
@@ -43,7 +44,6 @@ namespace Engine
         if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
         {
             std::cout << "Failed to initialize GLAD" << std::endl;
-            return -1;
         }
 #endif
 

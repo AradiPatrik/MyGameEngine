@@ -1,0 +1,12 @@
+{
+  "name" : "opengl-playground",
+  "version-string" : "1.0.0",
+  "builtin-baseline" : "48e95d1aa3fedd24234f1d436226d07fc2b4f45f",
+  "dependencies" : [ {
+    "name" : "glad",
+    "version>=" : "0.1.36"
+  }, {
+    "name" : "glfw3",
+    "version>=" : "3.3.9"
+  } ]
+}

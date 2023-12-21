@@ -12,7 +12,7 @@ class GameBoard {
 public:
     GameBoard();
 
-    void draw(glm::mat4 &viewMatrix, glm::mat4 &projectionMatrix);
+    void draw(glm::mat4& viewMatrix, glm::mat4& projectionMatrix);
 
 private:
     Engine::Shader shader;
@@ -23,5 +23,4 @@ private:
     GLuint boxVao;
 };
 
-
-#endif //OPENGL_PLAYGROUND_GAMEBOARD_H
+#endif // OPENGL_PLAYGROUND_GAMEBOARD_H

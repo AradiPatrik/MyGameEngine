@@ -6,16 +6,16 @@
 #else
 #include <glad/glad.h>
 #endif
-#include <iostream>
-#include <GLFW/glfw3.h>
-#include "../../engine/Shader.h"
 #include "../../engine/Camera.h"
-#include "stb_image.h"
-#include "Snake.h"
+#include "../../engine/Shader.h"
 #include "GameBoard.h"
+#include "Snake.h"
+#include "stb_image.h"
+#include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <iostream>
 
 #include "../../engine/Window.h"
 
@@ -35,8 +35,7 @@ int main()
 
     auto lastFrameTime = static_cast<float>(glfwGetTime());
 
-    while (!window.shouldClose())
-    {
+    while (!window.shouldClose()) {
         const auto thisFrameTime = static_cast<float>(glfwGetTime());
         const auto deltaTime = thisFrameTime - lastFrameTime;
         lastFrameTime = thisFrameTime;

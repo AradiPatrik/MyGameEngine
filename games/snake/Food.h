@@ -15,7 +15,7 @@ class Food {
 public:
     Food();
 
-    void draw(glm::mat4 &viewMatrix, glm::mat4 &projectionMatrix);
+    void draw(glm::mat4& viewMatrix, glm::mat4& projectionMatrix);
 
     void respawn();
 
@@ -24,11 +24,9 @@ public:
 private:
     Shader shader;
 
-    glm::vec2 position = {0, 0};
+    glm::vec2 position = { 0, 0 };
 
     GLuint vao;
-
 };
 
-
-#endif //OPENGL_PLAYGROUND_FOOD_H
+#endif // OPENGL_PLAYGROUND_FOOD_H

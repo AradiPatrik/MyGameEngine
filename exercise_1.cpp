@@ -1,35 +1,37 @@
 #define GL_SILENCE_DEPRECATION
 
-#include <iostream>
+#include "engine/Shader.h"
 #include <GLFW/glfw3.h>
 #include <OpenGL/gl3.h>
-#include "engine/Shader.h"
 #include <fstream>
+#include <iostream>
 
-void onResizeWindow(GLFWwindow *window, int width, int height) {
+void onResizeWindow(GLFWwindow* window, int width, int height)
+{
     glViewport(0, 0, width, height);
 }
 
-void processInput(GLFWwindow *window) {
+void processInput(GLFWwindow* window)
+{
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
         glfwSetWindowShouldClose(window, true);
     }
 }
 
-int main() {
+int main()
+{
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
-    GLFWwindow *window = glfwCreateWindow(
-            800,
-            600,
-            "LearnOpenGL",
-            nullptr,
-            nullptr
-    );
+    GLFWwindow* window = glfwCreateWindow(
+        800,
+        600,
+        "LearnOpenGL",
+        nullptr,
+        nullptr);
 
     if (window == nullptr) {
         std::cerr << "Failed to create GLFW window" << std::endl;
@@ -43,12 +45,12 @@ int main() {
     glfwSetFramebufferSizeCallback(window, onResizeWindow);
 
     GLfloat vertices[] = {
-            -0.5f, 0.5f, 0.0f, // left top
-            -1.0f, -0.5f, 0.0f, // left bottom left
-            0.0f, -0.5f, 0.0f, // left bottom right
-            0.5f, 0.5f, 0.0f, // right top
-            1.0f, -0.5f, 0.0f, // right bottom left
-            0.0f, -0.5f, 0.0f, // right bottom right
+        -0.5f, 0.5f, 0.0f, // left top
+        -1.0f, -0.5f, 0.0f, // left bottom left
+        0.0f, -0.5f, 0.0f, // left bottom right
+        0.5f, 0.5f, 0.0f, // right top
+        1.0f, -0.5f, 0.0f, // right bottom left
+        0.0f, -0.5f, 0.0f, // right bottom right
     };
 
     GLuint vao;
@@ -59,11 +61,10 @@ int main() {
     glGenBuffers(1, &vbo);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glBufferData(
-            GL_ARRAY_BUFFER,
-            sizeof(vertices),
-            vertices,
-            GL_STATIC_DRAW
-    );
+        GL_ARRAY_BUFFER,
+        sizeof(vertices),
+        vertices,
+        GL_STATIC_DRAW);
 
     const auto simpleShader = Engine::Shader("shaders/simple_vertex.glsl", "shaders/simple_fragment.glsl");
 
@@ -77,15 +78,23 @@ int main() {
     glUseProgram(0);
 
     float boxVertices[] = {
-            0.5f, 0.5f, 0.0f,
-            0.5f, -0.5f, 0.0f,
-            -0.5f, -0.5f, 0.0f,
-            -0.5f, 0.5f, 0.0f,
+        0.5f,
+        0.5f,
+        0.0f,
+        0.5f,
+        -0.5f,
+        0.0f,
+        -0.5f,
+        -0.5f,
+        0.0f,
+        -0.5f,
+        0.5f,
+        0.0f,
     };
 
     GLuint boxIndices[] = {
-            0, 1, 3,
-            1, 2, 3
+        0, 1, 3,
+        1, 2, 3
     };
 
     GLuint boxVao;
@@ -100,19 +109,17 @@ int main() {
     glBindVertexArray(boxVao);
     glBindBuffer(GL_ARRAY_BUFFER, boxVbo);
     glBufferData(
-            GL_ARRAY_BUFFER,
-            sizeof(boxVertices),
-            boxVertices,
-            GL_STATIC_DRAW
-    );
+        GL_ARRAY_BUFFER,
+        sizeof(boxVertices),
+        boxVertices,
+        GL_STATIC_DRAW);
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, boxEbo);
     glBufferData(
-            GL_ELEMENT_ARRAY_BUFFER,
-            sizeof(boxIndices),
-            boxIndices,
-            GL_STATIC_DRAW
-    );
+        GL_ELEMENT_ARRAY_BUFFER,
+        sizeof(boxIndices),
+        boxIndices,
+        GL_STATIC_DRAW);
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), nullptr);
     glEnableVertexAttribArray(0);
@@ -125,9 +132,9 @@ int main() {
     glGenVertexArrays(1, &leftTriangleVao);
 
     GLfloat leftTriangleVertices[] = {
-            -0.5f, 0.5f, 0.0f, // left top
-            -1.0f, -0.5f, 0.0f, // left bottom left
-            0.0f, -0.5f, 0.0f, // left bottom right
+        -0.5f, 0.5f, 0.0f, // left top
+        -1.0f, -0.5f, 0.0f, // left bottom left
+        0.0f, -0.5f, 0.0f, // left bottom right
     };
 
     glBindVertexArray(leftTriangleVao);
@@ -137,11 +144,10 @@ int main() {
 
     glBindBuffer(GL_ARRAY_BUFFER, leftTriangleVbo);
     glBufferData(
-            GL_ARRAY_BUFFER,
-            sizeof(leftTriangleVertices),
-            leftTriangleVertices,
-            GL_STATIC_DRAW
-    );
+        GL_ARRAY_BUFFER,
+        sizeof(leftTriangleVertices),
+        leftTriangleVertices,
+        GL_STATIC_DRAW);
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), nullptr);
     glEnableVertexAttribArray(0);
@@ -150,9 +156,9 @@ int main() {
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     GLfloat rightTriangleVertices[] = {
-            0.0f, -0.5f, 0.0f, // right bottom right
-            0.5f, 0.5f, 0.0f, // right top
-            1.0f, -0.5f, 0.0f, // right bottom left
+        0.0f, -0.5f, 0.0f, // right bottom right
+        0.5f, 0.5f, 0.0f, // right top
+        1.0f, -0.5f, 0.0f, // right bottom left
     };
 
     GLuint rightTriangleVao;
@@ -165,11 +171,10 @@ int main() {
     glBindBuffer(GL_ARRAY_BUFFER, rightTriangleVbo);
 
     glBufferData(
-            GL_ARRAY_BUFFER,
-            sizeof(rightTriangleVertices),
-            rightTriangleVertices,
-            GL_STATIC_DRAW
-    );
+        GL_ARRAY_BUFFER,
+        sizeof(rightTriangleVertices),
+        rightTriangleVertices,
+        GL_STATIC_DRAW);
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), nullptr);
     glEnableVertexAttribArray(0);

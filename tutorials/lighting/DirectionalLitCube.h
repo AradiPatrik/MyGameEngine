@@ -26,7 +26,7 @@ public:
         lightDirection(lightDirection),
         LightmapCube(light, camera, diffuseMap, specularMap)
     {
-        shader = Engine::Shader("shaders/tutorial_lighting/direction_lit_cube/vertex.glsl",
+        m_shader = Engine::Shader("shaders/tutorial_lighting/direction_lit_cube/vertex.glsl",
                                 "shaders/tutorial_lighting/direction_lit_cube/fragment.glsl");
     }
 

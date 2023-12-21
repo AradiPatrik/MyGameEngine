@@ -16,9 +16,9 @@ void main() {
         fragColor = u_borderColor;
     }
 
-//    if (v_uv.x < u_borderSize || v_uv.x > 1.0 - u_borderSize || v_uv.y < u_borderSize || v_uv.y > 1.0 - u_borderSize) {
-//        fragColor = u_borderColor;
-//    } else {
-//        fragColor = u_fillColor;
-//    }
+    //    if (v_uv.x < u_borderSize || v_uv.x > 1.0 - u_borderSize || v_uv.y < u_borderSize || v_uv.y > 1.0 - u_borderSize) {
+    //        fragColor = u_borderColor;
+    //    } else {
+    //        fragColor = u_fillColor;
+    //    }
 }

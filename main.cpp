@@ -1,33 +1,35 @@
 #define GL_SILENCE_DEPRECATION
-#include <iostream>
-#include <OpenGL/gl3.h>
-#include <GLFW/glfw3.h>
 #include "engine/Shader.h"
+#include <GLFW/glfw3.h>
+#include <OpenGL/gl3.h>
+#include <iostream>
 
-void onResizeWindow(GLFWwindow *window, int width, int height) {
+void onResizeWindow(GLFWwindow* window, int width, int height)
+{
     glViewport(0, 0, width, height);
 }
 
-void processInput(GLFWwindow *window) {
+void processInput(GLFWwindow* window)
+{
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
         glfwSetWindowShouldClose(window, true);
     }
 }
 
-int main() {
+int main()
+{
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
-    GLFWwindow *window = glfwCreateWindow(
-            800,
-            600,
-            "LearnOpenGL",
-            nullptr,
-            nullptr
-    );
+    GLFWwindow* window = glfwCreateWindow(
+        800,
+        600,
+        "LearnOpenGL",
+        nullptr,
+        nullptr);
 
     if (window == nullptr) {
         std::cerr << "Failed to create GLFW window" << std::endl;
@@ -41,9 +43,9 @@ int main() {
     glfwSetFramebufferSizeCallback(window, onResizeWindow);
 
     GLfloat vertices[] = {
-            -0.5f, -0.5f, 0.0f, // left
-            0.5f, -0.5f, 0.0f, // right
-            0.0f, 0.5f, 0.0f // top
+        -0.5f, -0.5f, 0.0f, // left
+        0.5f, -0.5f, 0.0f, // right
+        0.0f, 0.5f, 0.0f // top
     };
 
     GLuint vao;
@@ -54,11 +56,10 @@ int main() {
     glGenBuffers(1, &vbo);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glBufferData(
-            GL_ARRAY_BUFFER,
-            sizeof(vertices),
-            vertices,
-            GL_STATIC_DRAW
-    );
+        GL_ARRAY_BUFFER,
+        sizeof(vertices),
+        vertices,
+        GL_STATIC_DRAW);
 
     const auto shader = Engine::Shader("shaders/simple_vertex.glsl", "shaders/simple_fragment.glsl");
 
@@ -70,15 +71,23 @@ int main() {
     glUseProgram(0);
 
     float boxVertices[] = {
-            0.5f, 0.5f, 0.0f,
-            0.5f, -0.5f, 0.0f,
-            -0.5f, -0.5f, 0.0f,
-            -0.5f, 0.5f, 0.0f,
+        0.5f,
+        0.5f,
+        0.0f,
+        0.5f,
+        -0.5f,
+        0.0f,
+        -0.5f,
+        -0.5f,
+        0.0f,
+        -0.5f,
+        0.5f,
+        0.0f,
     };
 
     GLuint boxIndices[] = {
-            0, 1, 3,
-            1, 2, 3
+        0, 1, 3,
+        1, 2, 3
     };
 
     GLuint boxVao;
@@ -93,19 +102,17 @@ int main() {
     glBindVertexArray(boxVao);
     glBindBuffer(GL_ARRAY_BUFFER, boxVbo);
     glBufferData(
-            GL_ARRAY_BUFFER,
-            sizeof(boxVertices),
-            boxVertices,
-            GL_STATIC_DRAW
-    );
+        GL_ARRAY_BUFFER,
+        sizeof(boxVertices),
+        boxVertices,
+        GL_STATIC_DRAW);
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, boxEbo);
     glBufferData(
-            GL_ELEMENT_ARRAY_BUFFER,
-            sizeof(boxIndices),
-            boxIndices,
-            GL_STATIC_DRAW
-    );
+        GL_ELEMENT_ARRAY_BUFFER,
+        sizeof(boxIndices),
+        boxIndices,
+        GL_STATIC_DRAW);
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), nullptr);
     glEnableVertexAttribArray(0);
@@ -123,7 +130,7 @@ int main() {
         glClear(GL_COLOR_BUFFER_BIT);
 
         double currentTimeSeconds = glfwGetTime();
-        if (((int) currentTimeSeconds) % 2 == 0) {
+        if (((int)currentTimeSeconds) % 2 == 0) {
             shader.use();
             glBindVertexArray(boxVao);
             glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);

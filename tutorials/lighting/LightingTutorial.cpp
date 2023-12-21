@@ -10,16 +10,16 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
+#include "../../engine/Materials.h"
 #include "GouraudLitCube.h"
 #include "LightCube.h"
 #include "LightmapCube.h"
 #include "LitCube.h"
 #include "MaterialCube.h"
-#include "../../engine/Materials.h"
 #include <GLFW/glfw3.h>
 
-#include "DirectionalLitCube.h"
 #include "../engine/Window.h"
+#include "DirectionalLitCube.h"
 
 int main()
 {
@@ -33,18 +33,16 @@ int main()
     LightCube light(PhongLightProperties(
         glm::vec3(1.0f, 1.0f, 1.0f),
         glm::vec3(1.0f, 1.0f, 1.0f),
-        glm::vec3(1.0f, 1.0f, 1.0f)
-    ));
+        glm::vec3(1.0f, 1.0f, 1.0f)));
     GouraudLitCube gouraudCube(glm::vec3(1.f, 0.5f, 0.38f), glm::vec3(1.0f, 0.5f, 1.0f), light, camera);
     MaterialCube materialCube(glm::vec3(2.f, 0.25f, 0.8f), glm::vec3(1.0f, 0.5f, 1.0f), light, camera, emerald);
     LitCube litCube(glm::vec3(1.f, 0.5f, 0.38f), glm::vec3(1.0f, 0.5f, 1.0f), light, camera);
     LightmapCube lightmapCube(light, camera, Engine::Texture("textures/metal_container_diffuse.png"),
-                              Engine::Texture("textures/metal_container_specular.png"));
+        Engine::Texture("textures/metal_container_specular.png"));
 
     DirectionLitCube directionalLitCube(light, camera, Engine::Texture("textures/metal_container_diffuse.png"),
-                                        Engine::Texture("textures/metal_container_specular.png"),
-                                        -glm::vec3(1.0f, 1.0f, 1.0f));
-
+        Engine::Texture("textures/metal_container_specular.png"),
+        -glm::vec3(1.0f, 1.0f, 1.0f));
 
     litCube.setPosition(glm::vec3(1.f, 1.f, 1.5f));
     materialCube.setPosition(glm::vec3(2.f, 2.f, 2.5f));
@@ -53,8 +51,7 @@ int main()
 
     auto currentRotation = glm::vec3(15.f, 23.f, 42.f);
 
-    while (!window.shouldClose())
-    {
+    while (!window.shouldClose()) {
         const auto thisFrameTime = static_cast<float>(glfwGetTime());
         const auto deltaTime = thisFrameTime - lastFrameTime;
         lastFrameTime = thisFrameTime;

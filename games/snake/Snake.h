@@ -7,25 +7,24 @@
 
 #include <vector>
 #define GLFW_INCLUDE_NONE
-#include <GLFW/glfw3.h>
 #include "../../engine/Shader.h"
 #include "Food.h"
+#include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-namespace Engine
-{
-    class Window;
+namespace Engine {
+class Window;
 }
 
 using namespace Engine;
 
 class Snake {
 public:
-    explicit Snake(const Window &window, Food& food);
+    explicit Snake(const Window& window, Food& food);
 
     void tick(float deltaTime);
-    void draw(glm::mat4 &viewMatrix, glm::mat4 &projectionMatrix);
+    void draw(glm::mat4& viewMatrix, glm::mat4& projectionMatrix);
 
     enum class Heading {
         UP,
@@ -33,24 +32,24 @@ public:
         LEFT,
         RIGHT
     };
+
 private:
-    Shader shader;
+    Shader m_shader;
 
-    std::vector<glm::vec2> body = {{0, 0}};
+    std::vector<glm::vec2> m_body = { { 0, 0 } };
 
-    Heading heading = Heading::UP;
-    Heading pendingHeading = Heading::UP;
+    Heading m_heading = Heading::UP;
+    Heading m_pendingHeading = Heading::UP;
 
-    float timeSinceLastMove = 0.0f;
+    float m_timeSinceLastMove = 0.0f;
 
-    const Window &window;
+    const Window& m_window;
 
-    GLuint vao;
+    GLuint m_vao;
 
-    Food& food;
+    Food& m_food;
 
-    static const int MOVES_PER_SECOND = 5;
+    static constexpr int MOVES_PER_SECOND = 5;
 };
 
-
-#endif //OPENGL_PLAYGROUND_SNAKE_H
+#endif // OPENGL_PLAYGROUND_SNAKE_H

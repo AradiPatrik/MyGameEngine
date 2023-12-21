@@ -31,6 +31,10 @@ void LightmapCube::draw(const glm::mat4& viewMatrix, const glm::mat4& projection
     shader.use();
     auto modelMatrix = glm::mat4(1.0f);
     modelMatrix = translate(modelMatrix, position);
+    modelMatrix = rotate(modelMatrix, glm::radians(rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
+    modelMatrix = rotate(modelMatrix, glm::radians(rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
+    modelMatrix = rotate(modelMatrix, glm::radians(rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
+
     light.bindToShader(shader);
     diffuseMap.bind(shader, GL_TEXTURE0, "u_material.diffuse");
     specularMap.bind(shader, GL_TEXTURE1, "u_material.specular");
@@ -42,4 +46,9 @@ void LightmapCube::draw(const glm::mat4& viewMatrix, const glm::mat4& projection
 void LightmapCube::setPosition(const glm::vec3& newPosition)
 {
     position = newPosition;
+}
+
+void LightmapCube::setRotation(const glm::vec3& newRotation)
+{
+    rotation = newRotation;
 }

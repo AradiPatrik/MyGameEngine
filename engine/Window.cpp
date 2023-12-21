@@ -5,7 +5,9 @@
 #include "Window.h"
 
 #include <iostream>
+#ifdef _WIN32
 #include <glad/glad.h>
+#endif
 #include <GLFW/glfw3.h>
 
 namespace Engine

@@ -23,6 +23,8 @@ namespace Engine {
         void setPosition(const glm::vec3 &newPosition);
         void setTarget(const glm::vec3 &newTarget);
 
+        void bindSpotLightShader(const Shader&) const;
+
         const glm::vec3& getPosition() const;
 
     private:

@@ -12,6 +12,7 @@ void DirectionLitCube::draw(const glm::mat4& viewMatrix, const glm::mat4& projec
     m_shader.setUniform("u_directionalLight.light.ambient", glm::vec3(0.2f, 0.2f, 0.2f));
     m_shader.setUniform("u_directionalLight.light.diffuse", glm::vec3(1.0f, 1.0f, 1.0f));
     m_shader.setUniform("u_directionalLight.light.specular", glm::vec3(1.0f, 1.0f, 1.0f));
+    m_camera.bindSpotLightShader(m_shader);
     LightmapCube::draw(viewMatrix, projectionMatrix);
 }
 

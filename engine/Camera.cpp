@@ -105,6 +105,15 @@ namespace Engine
         pitch = glm::degrees(asin(front.y));
         //        yaw = glm::degrees(atan2(front.x, front.z));
     }
+    void Camera::bindSpotLightShader(const Shader& shader) const
+    {
+        shader.use();
+        shader.setUniform("u_spotPosition", position);
+        shader.setUniform("u_spotFacing", front);
+        shader.setUniform("u_spotInnerConeCosCutoff", cos(glm::radians(5.5f)));
+        shader.setUniform("u_spotOuterConeCosCutoff", cos(glm::radians(8.5f)));
+        shader.setUniform("u_spotCutOff", glm::radians(12.5f));
+    }
 
     const glm::vec3& Camera::getPosition() const
     {

@@ -3,18 +3,21 @@
 //
 
 #include "LightCube.h"
+
 #include "../../engine/MeshUtils.h"
+#include "LightAttenuation.h"
+#include "MultipleLiteCube.h"
 
 LightCube::LightCube(PhongLightProperties phongLightProperties)
     : m_vao(MeshUtils::createBoxVao())
     , m_shader("shaders/tutorial_lighting/light_cube/vertex.glsl",
           "shaders/tutorial_lighting/light_cube/fragment.glsl")
     , m_position(0, 0, 0)
-    , m_phongLightProperties(std::move(phongLightProperties))
+    , m_phongLightProperties(phongLightProperties)
 {
 }
 
-void LightCube::draw(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix)
+void LightCube::draw(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix) const
 {
     glm::mat4 modelMatrix = glm::mat4(1.0f);
     modelMatrix = translate(modelMatrix, m_position);
@@ -43,6 +46,6 @@ void LightCube::bindToShader(const Shader& shader) const
     shader.setUniform("u_light.diffuse", m_phongLightProperties.diffuse);
     shader.setUniform("u_light.specular", m_phongLightProperties.specular);
     shader.setUniform("u_constant", 1.0f);
-    shader.setUniform("u_linear", PointLightAttenuation::linear[A_50]);
-    shader.setUniform("u_quadratic", PointLightAttenuation::quadratic[A_50]);
+    shader.setUniform("u_linear", LightAttenuation::linear[LightAttenuation::A_50]);
+    shader.setUniform("u_quadratic", LightAttenuation::quadratic[LightAttenuation::A_50]);
 }

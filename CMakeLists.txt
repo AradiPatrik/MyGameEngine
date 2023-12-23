@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD 17)
 # Collect all source files from the 'engine' directory
 file(GLOB ENGINE_SOURCES "engine/*.cpp" "engine/*.h")
 file(GLOB LIGHTING_SOURCES "tutorials/lighting/*.cpp" "tutorials/lighting/*.h")
+file(GLOB MODEL_LOADING_SOURCES "tutorials/modelloading/*.cpp" "tutorials/modelloading/*.h")
 
 add_executable(opengl_playground main.cpp ${ENGINE_SOURCES})
 add_executable(exercise_1 exercise_1.cpp ${ENGINE_SOURCES})
@@ -21,6 +22,7 @@ add_executable(snake games/snake/SnakeGame.cpp ${ENGINE_SOURCES} games/snake/Sna
         games/snake/Food.h
 )
 add_executable(colors ${LIGHTING_SOURCES} ${ENGINE_SOURCES})
+add_executable(modelloading ${MODEL_LOADING_SOURCES} ${LIGHTING_SOURCES} ${ENGINE_SOURCES})
 
 if (WIN32)
     find_package(glad CONFIG REQUIRED)
@@ -28,6 +30,7 @@ endif ()
 
 find_package(glfw3 CONFIG REQUIRED)
 find_package(OpenGL REQUIRED)
+find_package(assimp CONFIG REQUIRED)
 
 find_package(glm REQUIRED)
 
@@ -44,9 +47,10 @@ foreach (target
         coordinate_systems
         moving_around
         snake
-        colors)
+        colors
+        modelloading)
 
-    target_link_libraries(${target} PRIVATE glfw ${OPENGL_gl_LIBRARY} glm::glm)
+    target_link_libraries(${target} PRIVATE glfw ${OPENGL_gl_LIBRARY} glm::glm assimp::assimp)
 
     # Add glad only for Windows
     if (WIN32)

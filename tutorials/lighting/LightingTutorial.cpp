@@ -29,7 +29,7 @@ void mapPointLightsToLightCubes(const std::vector<PointLight>& pointLights, std:
     }
 }
 
-int main()
+int main2()
 {
     const auto window = Engine::Window(600, 800);
     auto camera = Engine::Camera(window, true);
@@ -38,19 +38,20 @@ int main()
 
     auto lastFrameTime = static_cast<float>(glfwGetTime());
 
-    // LightCube light(PhongLightProperties(
-    //     glm::vec3(1.0f, 1.0f, 1.0f),
-    //     glm::vec3(1.0f, 1.0f, 1.0f),
-    //     glm::vec3(1.0f, 1.0f, 1.0f)));
+    LightCube light(PhongLightProperties(
+        glm::vec3(1.0f, 1.0f, 1.0f),
+        glm::vec3(1.0f, 1.0f, 1.0f),
+        glm::vec3(1.0f, 1.0f, 1.0f)));
     // GouraudLitCube gouraudCube(glm::vec3(1.f, 0.5f, 0.38f), glm::vec3(1.0f, 0.5f, 1.0f), light, camera);
     // MaterialCube materialCube(glm::vec3(2.f, 0.25f, 0.8f), glm::vec3(1.0f, 0.5f, 1.0f), light, camera, emerald);
     // LitCube litCube(glm::vec3(1.f, 0.5f, 0.38f), glm::vec3(1.0f, 0.5f, 1.0f), light, camera);
     // LightmapCube lightmapCube(light, camera, Engine::Texture("textures/metal_container_diffuse.png"),
     //     Engine::Texture("textures/metal_container_specular.png"));
     //
-    // DirectionLitCube directionalLitCube(light, camera, Engine::Texture("textures/metal_container_diffuse.png"),
-    //     Engine::Texture("textures/metal_container_specular.png"),
-    //     -glm::vec3(1.0f, 1.0f, 1.0f));
+    DirectionLitCube directionalLitCube(light, camera, Engine::Texture("textures/metal_container_diffuse.png"),
+        Engine::Texture("textures/metal_container_specular.png"),
+        -glm::vec3(1.0f, 1.0f, 1.0f));
+
 
     DirectionalLight directionalLight(
         glm::vec3(1.0f, 1.0f, 1.0f),
@@ -87,18 +88,21 @@ int main()
         currentRotation.y += 1.f * deltaTime;
         currentRotation.z += 1.f * deltaTime;
 
-        std::vector<LightCube> lightCubes;
-        mapPointLightsToLightCubes(pointLights, lightCubes);
+        // std::vector<LightCube> lightCubes;
+        // mapPointLightsToLightCubes(pointLights, lightCubes);
+        //
+        // for (PointLight& pointLight : pointLights) {
+        //     pointLight.position += glm::vec3(sin(glfwGetTime()) * 3, cos(glfwGetTime()) * 4, cos(glfwGetTime()) * 2) * deltaTime;
+        // }
+        //
+        // for (const auto lightCube : lightCubes) {
+        //     lightCube.draw(camera.getViewMatrix(), camera.getProjectionMatrix());
+        // }
+        //
+        // multipleLiteCube.draw();
 
-        for (PointLight& pointLight : pointLights) {
-            pointLight.position += glm::vec3(sin(glfwGetTime()) * 3, cos(glfwGetTime()) * 4, cos(glfwGetTime()) * 2) * deltaTime;
-        }
-
-        for (const auto lightCube : lightCubes) {
-            lightCube.draw(camera.getViewMatrix(), camera.getProjectionMatrix());
-        }
-
-        multipleLiteCube.draw();
+        light.draw(camera.getViewMatrix(), camera.getProjectionMatrix());
+        directionalLitCube.draw(camera.getViewMatrix(), camera.getProjectionMatrix());
 
         window.tick();
         camera.update(deltaTime);

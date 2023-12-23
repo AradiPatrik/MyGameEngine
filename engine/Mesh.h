@@ -4,13 +4,13 @@
 
 #ifndef MESH_H
 #define MESH_H
+#include "Texture.h"
 #include "glm/glm.hpp"
 
 #include <vector>
 
 namespace Engine {
 class Shader;
-class Texture;
 
 struct Vertex {
     glm::vec3 position;

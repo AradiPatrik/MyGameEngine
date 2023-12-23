@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.27)
 project(opengl_playground)
 
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_VERBOSE_MAKEFILE ON)
 
 # Collect all source files from the 'engine' directory
 file(GLOB ENGINE_SOURCES "engine/*.cpp" "engine/*.h")
@@ -37,6 +38,8 @@ find_package(glm REQUIRED)
 include_directories(${CMAKE_SOURCE_DIR}/include)
 include_directories(${OPENGL_INCLUDE_DIR})
 
+find_path(DYLIB_INCLUDE_DIRS "dylib.hpp")
+
 # Link against OpenGL and glm for all platforms
 foreach (target
         opengl_playground
@@ -52,6 +55,7 @@ foreach (target
 
     target_link_libraries(${target} PRIVATE glfw ${OPENGL_gl_LIBRARY} glm::glm assimp::assimp)
 
+    target_include_directories(${target} PRIVATE ${DYLIB_INCLUDE_DIRS})
     # Add glad only for Windows
     if (WIN32)
         target_link_libraries(${target} PRIVATE glad::glad)
@@ -71,6 +75,12 @@ function(copy_resources_to_target target_name)
             COMMENT "Copying textures to build directory for ${target_name}"
     )
 
+    add_custom_target(copy_assets_${target_name} ALL
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+            ${CMAKE_SOURCE_DIR}/assets $<TARGET_FILE_DIR:${target_name}>/assets
+            COMMENT "Copying assets to build directory for ${target_name}"
+    )
+
     add_dependencies(${target_name} copy_shaders_${target_name})
     add_dependencies(${target_name} copy_textures_${target_name})
 endfunction()
@@ -84,3 +94,4 @@ copy_resources_to_target(coordinate_systems)
 copy_resources_to_target(moving_around)
 copy_resources_to_target(snake)
 copy_resources_to_target(colors)
+copy_resources_to_target(modelloading)

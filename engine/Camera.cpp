@@ -110,9 +110,15 @@ namespace Engine
         shader.use();
         shader.setUniform("u_spotPosition", position);
         shader.setUniform("u_spotFacing", front);
-        shader.setUniform("u_spotInnerConeCosCutoff", cos(glm::radians(5.5f)));
-        shader.setUniform("u_spotOuterConeCosCutoff", cos(glm::radians(8.5f)));
+        shader.setUniform("u_spotInnerConeCosCutoff", static_cast<float>(cos(glm::radians(5.5f))));
+        shader.setUniform("u_spotOuterConeCosCutoff", static_cast<float>(cos(glm::radians(8.5f))));
         shader.setUniform("u_spotCutOff", glm::radians(12.5f));
+    }
+    void Camera::bindViewAndProjectionMatrix(const Shader& shader) const
+    {
+        shader.use();
+        shader.setUniform("u_view", getViewMatrix());
+        shader.setUniform("u_projection", getProjectionMatrix());
     }
 
     const glm::vec3& Camera::getPosition() const

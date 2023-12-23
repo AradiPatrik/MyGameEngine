@@ -7,7 +7,11 @@
 #include "Shader.h"
 #include "Texture.h"
 
+#ifndef WIN32
 #include <OpenGL/gl3.h>
+#else
+#include <glad/glad.h>
+#endif
 
 #include <utility>
 
@@ -45,8 +49,13 @@ void Mesh::draw(const Shader& shader) const
     shader.use();
     glBindVertexArray(m_vao);
 
-    for (int i = 0; i < m_diffuseMaps.size(); ++i) {
+    int i = 0;
+    for (; i < m_diffuseMaps.size(); ++i) {
         m_diffuseMaps[i].bind(shader, GL_TEXTURE0 + i, "material.diffuseMaps[" + std::to_string(i) + "]");
+    }
+
+    for (; i < m_specularMaps.size(); ++i) {
+        m_specularMaps[i].bind(shader, GL_TEXTURE0 + i, "material.specularMaps[" + std::to_string(i) + "]");
     }
 
     glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(m_indices.size()), GL_UNSIGNED_INT, nullptr);

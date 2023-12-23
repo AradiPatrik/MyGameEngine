@@ -18,6 +18,7 @@ public:
     [[nodiscard]] const glm::vec3& getPosition() const;
     [[nodiscard]] const PhongLightProperties& getLightProperties() const;
     void bindToShader(const Engine::Shader& shader) const;
+    void bindToShader(const Engine::Shader&, int index) const;
 
 private:
     GLuint m_vao;

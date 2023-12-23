@@ -24,6 +24,7 @@ namespace Engine {
         void setTarget(const glm::vec3 &newTarget);
 
         void bindSpotLightShader(const Shader&) const;
+        void bindViewAndProjectionMatrix(const Shader&) const;
 
         const glm::vec3& getPosition() const;
 

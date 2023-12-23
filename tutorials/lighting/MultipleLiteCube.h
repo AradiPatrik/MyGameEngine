@@ -6,7 +6,11 @@
 #define MULTIPLELITECUBE_H
 #include "LightAttenuation.h"
 
+#ifdef WIN32
+#include <glad/glad.h>
+#else
 #include <OpenGL/gl3.h>
+#endif
 #include <glm/glm.hpp>
 #include <vector>
 #include "../engine/Shader.h"

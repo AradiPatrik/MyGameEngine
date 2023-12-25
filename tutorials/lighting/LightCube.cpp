@@ -8,6 +8,8 @@
 #include "LightAttenuation.h"
 #include "MultipleLiteCube.h"
 
+#include <string>
+
 LightCube::LightCube(PhongLightProperties phongLightProperties)
     : m_vao(MeshUtils::createBoxVao())
     , m_shader("shaders/tutorial_lighting/light_cube/vertex.glsl",
@@ -51,11 +53,12 @@ void LightCube::bindToShader(const Shader& shader) const
 }
 void LightCube::bindToShader(const Shader& shader, const int index) const
 {
+    shader.use();
     shader.setUniform("u_pointLightPositions[" + std::to_string(index) + "]", m_position);
     shader.setUniform("u_pointLights[" + std::to_string(index) + "].ambient", m_phongLightProperties.ambient);
     shader.setUniform("u_pointLights[" + std::to_string(index) + "].diffuse", m_phongLightProperties.diffuse);
     shader.setUniform("u_pointLights[" + std::to_string(index) + "].specular", m_phongLightProperties.specular);
     shader.setUniform("u_pointLights[" + std::to_string(index) + "].constant", 1.0f);
-    shader.setUniform("u_pointLights[" + std::to_string(index) + "].linear", LightAttenuation::linear[LightAttenuation::A_100]);
-    shader.setUniform("u_pointLights[" + std::to_string(index) + "].quadratic", LightAttenuation::quadratic[LightAttenuation::A_100]);
+    shader.setUniform("u_pointLights[" + std::to_string(index) + "].linear", LightAttenuation::linear[LightAttenuation::A_50]);
+    shader.setUniform("u_pointLights[" + std::to_string(index) + "].quadratic", LightAttenuation::quadratic[LightAttenuation::A_50]);
 }

@@ -67,8 +67,7 @@ GLuint MeshUtils::createBoxVao()
         GL_ARRAY_BUFFER,
         sizeof(vertices),
         vertices,
-        GL_STATIC_DRAW
-    );
+        GL_STATIC_DRAW);
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), nullptr);
     glEnableVertexAttribArray(0);
@@ -138,8 +137,7 @@ GLuint MeshUtils::createBoxWithNormals()
         GL_ARRAY_BUFFER,
         sizeof(vertices),
         vertices,
-        GL_STATIC_DRAW
-    );
+        GL_STATIC_DRAW);
 
     glVertexAttribPointer(
         0,
@@ -147,8 +145,7 @@ GLuint MeshUtils::createBoxWithNormals()
         GL_FLOAT,
         GL_FALSE,
         6 * sizeof(GLfloat),
-        (GLvoid*)0
-    );
+        (GLvoid*)0);
     glEnableVertexAttribArray(0);
 
     glVertexAttribPointer(
@@ -157,15 +154,13 @@ GLuint MeshUtils::createBoxWithNormals()
         GL_FLOAT,
         GL_FALSE,
         6 * sizeof(GLfloat),
-        (GLvoid*)(3 * sizeof(GLfloat))
-    );
+        (GLvoid*)(3 * sizeof(GLfloat)));
     glEnableVertexAttribArray(1);
 
     glBindVertexArray(0);
 
     return vao;
 }
-
 
 GLuint MeshUtils::createQuadVao()
 {
@@ -189,8 +184,7 @@ GLuint MeshUtils::createQuadVao()
         GL_ARRAY_BUFFER,
         sizeof(vertices),
         vertices,
-        GL_STATIC_DRAW
-    );
+        GL_STATIC_DRAW);
 
     glVertexAttribPointer(
         0,
@@ -198,8 +192,7 @@ GLuint MeshUtils::createQuadVao()
         GL_FLOAT,
         GL_FALSE,
         5 * sizeof(GLfloat),
-        (GLvoid*)0
-    );
+        (GLvoid*)0);
     glEnableVertexAttribArray(0);
 
     glVertexAttribPointer(
@@ -208,8 +201,7 @@ GLuint MeshUtils::createQuadVao()
         GL_FLOAT,
         GL_FALSE,
         5 * sizeof(GLfloat),
-        (GLvoid*)(3 * sizeof(GLfloat))
-    );
+        (GLvoid*)(3 * sizeof(GLfloat)));
     glEnableVertexAttribArray(1);
 
     glBindVertexArray(0);
@@ -275,8 +267,7 @@ GLuint MeshUtils::createBoxWithNormalsAndUvs()
         GL_ARRAY_BUFFER,
         sizeof(vertices),
         vertices,
-        GL_STATIC_DRAW
-    );
+        GL_STATIC_DRAW);
 
     glVertexAttribPointer(
         0,
@@ -284,8 +275,7 @@ GLuint MeshUtils::createBoxWithNormalsAndUvs()
         GL_FLOAT,
         GL_FALSE,
         8 * sizeof(GLfloat),
-        (GLvoid*)0
-    );
+        (GLvoid*)0);
     glEnableVertexAttribArray(0);
 
     glVertexAttribPointer(
@@ -294,8 +284,7 @@ GLuint MeshUtils::createBoxWithNormalsAndUvs()
         GL_FLOAT,
         GL_FALSE,
         8 * sizeof(GLfloat),
-        (GLvoid*)(3 * sizeof(GLfloat))
-    );
+        (GLvoid*)(3 * sizeof(GLfloat)));
     glEnableVertexAttribArray(1);
 
     glVertexAttribPointer(
@@ -304,16 +293,49 @@ GLuint MeshUtils::createBoxWithNormalsAndUvs()
         GL_FLOAT,
         GL_FALSE,
         8 * sizeof(GLfloat),
-        (GLvoid*)(6 * sizeof(GLfloat))
-    );
+        (GLvoid*)(6 * sizeof(GLfloat)));
     glEnableVertexAttribArray(2);
+    glBindVertexArray(0);
+
+    return vao;
+}
+GLuint MeshUtils::createTextureDebugQuadVao()
+{
+    // quad vertices with uvs
+    constexpr float vertices[] = {
+        // positions          // texture Coords
+        -1.f, 1.f, 0.0f, 0.0f, 1.0f,
+        1.f, 1.f, 0.0f, 1.0f, 1.0f,
+        1.f, -1.f, 0.0f, 1.0f, 0.0f,
+        1.f, -1.f, 0.0f, 1.0f, 0.0f,
+        -1.f, -1.f, 0.0f, 0.0f, 0.0f,
+        -1.f, 1.f, 0.0f, 0.0f, 1.0f
+    };
+
+    GLuint vao;
+    GLuint vbo;
+
+    glGenVertexArrays(1, &vao);
+    glGenBuffers(1, &vbo);
+
+    glBindVertexArray(vao);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), nullptr);
+    glEnableVertexAttribArray(0);
+
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
+    glEnableVertexAttribArray(1);
+
     glBindVertexArray(0);
 
     return vao;
 }
 
 void MeshUtils::drawQuad(Shader& shader, GLuint vao, glm::mat4& modelMatrix, glm::mat4& viewMatrix,
-                         glm::mat4& projectionMatrix)
+    glm::mat4& projectionMatrix)
 {
     shader.use();
     glBindVertexArray(vao);
@@ -328,7 +350,7 @@ void MeshUtils::drawQuad(Shader& shader, GLuint vao, glm::mat4& modelMatrix, glm
 }
 
 void MeshUtils::drawBox(const Shader& shader, const GLuint vao, const glm::mat4& modelMatrix, const glm::mat4& viewMatrix,
-                        const glm::mat4& projectionMatrix)
+    const glm::mat4& projectionMatrix)
 {
     shader.use();
     glBindVertexArray(vao);
@@ -339,5 +361,13 @@ void MeshUtils::drawBox(const Shader& shader, const GLuint vao, const glm::mat4&
 
     glDrawArrays(GL_TRIANGLES, 0, 36);
 
+    glBindVertexArray(0);
+}
+
+void MeshUtils::drawTextureDebugQuad(const Shader& shader, const GLuint vao)
+{
+    shader.use();
+    glBindVertexArray(vao);
+    glDrawArrays(GL_TRIANGLES, 0, 6);
     glBindVertexArray(0);
 }

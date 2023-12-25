@@ -83,6 +83,7 @@ function(copy_resources_to_target target_name)
 
     add_dependencies(${target_name} copy_shaders_${target_name})
     add_dependencies(${target_name} copy_textures_${target_name})
+    add_dependencies(${target_name} copy_assets_${target_name})
 endfunction()
 
 copy_resources_to_target(opengl_playground)

@@ -9,22 +9,24 @@
 
 using namespace Engine;
 
-namespace MeshUtils
-{
-    GLuint createQuadVao();
+namespace MeshUtils {
+GLuint createQuadVao();
 
-    GLuint createBoxVao();
+GLuint createBoxVao();
 
-    GLuint createBoxWithNormals();
+GLuint createBoxWithNormals();
 
-    GLuint createBoxWithNormalsAndUvs();
+GLuint createBoxWithNormalsAndUvs();
 
-    void drawQuad(Shader& shader, GLuint vao, glm::mat4& modelMatrix, glm::mat4& viewMatrix,
-                  glm::mat4& projectionMatrix);
+GLuint createTextureDebugQuadVao();
 
-    void drawBox(const Shader& shader, GLuint vao, const glm::mat4& modelMatrix, const glm::mat4& viewMatrix,
-                 const glm::mat4& projectionMatrix);
+void drawQuad(Shader& shader, GLuint vao, glm::mat4& modelMatrix, glm::mat4& viewMatrix,
+    glm::mat4& projectionMatrix);
+
+void drawBox(const Shader& shader, GLuint vao, const glm::mat4& modelMatrix, const glm::mat4& viewMatrix,
+    const glm::mat4& projectionMatrix);
+
+void drawTextureDebugQuad(const Shader& shader, GLuint vao);
 }
 
-
-#endif //OPENGL_PLAYGROUND_MESHUTILS_H
+#endif // OPENGL_PLAYGROUND_MESHUTILS_H

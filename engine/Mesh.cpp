@@ -50,13 +50,16 @@ void Mesh::draw(const Shader& shader) const
     glBindVertexArray(m_vao);
 
     int i = 0;
-    for (; i < m_diffuseMaps.size(); ++i) {
-        m_diffuseMaps[i].bind(shader, GL_TEXTURE0 + i, "material.diffuseMaps[" + std::to_string(i) + "]");
-    }
-
-    for (; i < m_specularMaps.size(); ++i) {
-        m_specularMaps[i].bind(shader, GL_TEXTURE0 + i, "material.specularMaps[" + std::to_string(i) + "]");
-    }
+    // for (; i < m_diffuseMaps.size(); ++i) {
+    //     m_diffuseMaps[i].bind(shader, GL_TEXTURE0 + i, "material.diffuseMaps[" + std::to_string(i) + "]");
+    // }
+    //
+    // for (; i < m_specularMaps.size(); ++i) {
+    //     m_specularMaps[i].bind(shader, GL_TEXTURE0 + i, "material.specularMaps[" + std::to_string(i) + "]");
+    // }
+    m_diffuseMaps[0].bind(shader, GL_TEXTURE0, "u_material.diffuse");
+    m_specularMaps[0].bind(shader, GL_TEXTURE1, "u_material.specular");
+    shader.setUniform("material.shininess", 32.0f);
 
     glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(m_indices.size()), GL_UNSIGNED_INT, nullptr);
 }

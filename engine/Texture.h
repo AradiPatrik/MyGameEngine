@@ -12,22 +12,23 @@
 #include <glad/glad.h>
 #endif
 
-namespace Engine
-{
-    class Shader;
+namespace Engine {
+class Shader;
 
-    class Texture
-    {
-        GLuint textureId;
+class Texture {
+    GLuint m_textureId;
+    GLuint m_vao = 0;
 
-    public:
-        explicit Texture(const std::string& path);
+public:
+    explicit Texture(const std::string& path);
 
-        void bind() const;
-        void bind(GLenum position) const;
-        void bind(const Shader& shader, GLenum position, const std::string& uniformName) const;
-    };
+    void bind() const;
+    void bind(GLenum position) const;
+    void bind(const Shader& shader, GLenum position, const std::string& uniformName) const;
+
+
+    void drawDebugQuad(const Shader& shader);
+};
 }
 
-
-#endif //OPENGL_PLAYGROUND_TEXTURE_H
+#endif // OPENGL_PLAYGROUND_TEXTURE_H

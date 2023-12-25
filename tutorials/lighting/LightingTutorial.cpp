@@ -59,7 +59,7 @@ int main2()
         glm::vec3(0.5f, 0.5f, 0.5f),
         glm::vec3(1.0f, 1.0f, 1.0f));
 
-    std::vector pointLights = {
+    std::vector<PointLight> pointLights = {
         PointLight(glm::vec3(3, 3, 3), glm::vec3(0.05f, 0.05f, 0.05f), glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(1, 1, 1)),
         PointLight(glm::vec3(-2, 2, -2), glm::vec3(0.05f, 0.05f, 0.05f), glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(1, 1, 1)),
         PointLight(glm::vec3(-2, 2, 2), glm::vec3(0.05f, 0.05f, 0.05f), glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(1, 1, 1)),

@@ -28,7 +28,7 @@ struct Material
     const float shininess;
 };
 
-constexpr Material emerald(
+const Material emerald(
     glm::vec3(0.0215, 0.1745, 0.0215),
     glm::vec3(0.07568, 0.61424, 0.07568),
     glm::vec3(0.633, 0.727811, 0.633),

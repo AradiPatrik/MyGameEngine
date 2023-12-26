@@ -1,0 +1,132 @@
+@startuml
+!theme reddress-darkred
+
+interface Material
+
+struct Vertex {
+    +position: Vec3
+    +normal: Vec3
+    +uv: Vec2
+}
+
+struct Mesh extends Renderable {
+    +vertices: List<Vertex>
+    +indices: List<Int>
+    +material: Material
+}
+
+struct Model extends Renderable {
+    +meshes: List<Mesh>
+}
+
+struct PointLight {
+    +position: Vec3
+    +ambient: Vec3
+    +diffuse: Vec3
+    +specular: Vec3
+    +constant: Float
+    +linear: Float
+    +quadratic: Float
+}
+
+struct DirectionalLight {
+    +direction: Vec3
+    +ambient: Vec3
+    +diffuse: Vec3
+    +specular: Vec3
+}
+
+struct PhongTextureMaterial extends Material {
+    +diffuseTexture: Texture
+    +specularTexture: Texture
+    +shininess: Float
+}
+
+struct PhongMaterial extends Material {
+    +diffuseColor: Vec3
+    +specularColor: Vec3
+    +shininess: Float
+}
+
+struct Texture {
+    +id: Int
+    +width: Int
+    +height: Int
+}
+
+struct Outline {
+    +color: Vec3
+    +width: Float
+}
+
+abstract class GameObject extends Renderable {
+    +location: Vec3
+    +rotation: Vec3
+    +scale: Vec3
+    +model: Model
+    +update(deltaTime: Float)
+}
+
+interface Shader {
+    +Shader(vertexSource: String, fragmentSource: String)
+    --
+    +start()
+    +stop()
+}
+
+note right of Shader
+    start has to be called before
+    any uniform can be set
+endnote
+
+abstract class MvpShader extends Shader {
+    +loadProjectionMatrix(Mat4)
+    +loadViewMatrix(Mat4)
+    +loadModelMatrix(Mat4)
+}
+
+class PhongShader extends MvpShader {
+    +loadPointLights(List<PointLight>)
+    +loadDirectionalLight(DirectionalLight)
+    +loadMaterial(PhongMaterial)
+}
+
+class PhongTextureShader extends MvpShader {
+    +loadPointLights(List<PointLight>)
+    +loadDirectionalLight(DirectionalLight)
+    +loadMaterial(PhongTextureMaterial)
+}
+
+class OutlineShader extends MvpShader {
+    +loadOutline(Outline)
+}
+
+interface ShaderProvider {
+     +getShader<T : Shader>(shaderName: String): T
+}
+
+interface Renderer {
+    +Renderer(PhongShader, PhongTextureShader, OutlineShader, Camera, DirectionalLight, List<PointLight>)
+    --
+    +render(GameObject)
+    +render(Model)
+    +render(Mesh)
+    +render(Mesh, Outline)
+}
+
+interface Renderable {
+    +accept(Renderer)
+}
+
+Mesh *-- Vertex
+Model *-- Mesh
+Mesh *-- Material
+GameObject o-- Model
+Renderer *-- PhongShader
+Renderer *-- PhongTextureShader
+Renderer *-- OutlineShader
+Renderer *-- Camera
+Renderer *-- DirectionalLight
+Renderer *-- PointLight
+
+@enduml

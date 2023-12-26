@@ -24,6 +24,7 @@ add_executable(snake games/snake/SnakeGame.cpp ${ENGINE_SOURCES} games/snake/Sna
 )
 add_executable(colors ${LIGHTING_SOURCES} ${ENGINE_SOURCES})
 add_executable(modelloading ${MODEL_LOADING_SOURCES} ${LIGHTING_SOURCES} ${ENGINE_SOURCES})
+add_executable(stencil tutorials/stencil/stencil.cpp ${LIGHTING_SOURCES} ${ENGINE_SOURCES})
 
 if (WIN32)
     find_package(glad CONFIG REQUIRED)
@@ -51,7 +52,8 @@ foreach (target
         moving_around
         snake
         colors
-        modelloading)
+        modelloading
+        stencil)
 
     target_link_libraries(${target} PRIVATE glfw ${OPENGL_gl_LIBRARY} glm::glm assimp::assimp)
 
@@ -76,7 +78,7 @@ function(copy_resources_to_target target_name)
     )
 
     add_custom_target(copy_assets_${target_name} ALL
-        COMMAND ${CMAKE_COMMAND} -E copy_directory
+            COMMAND ${CMAKE_COMMAND} -E copy_directory
             ${CMAKE_SOURCE_DIR}/assets $<TARGET_FILE_DIR:${target_name}>/assets
             COMMENT "Copying assets to build directory for ${target_name}"
     )
@@ -96,3 +98,4 @@ copy_resources_to_target(moving_around)
 copy_resources_to_target(snake)
 copy_resources_to_target(colors)
 copy_resources_to_target(modelloading)
+copy_resources_to_target(stencil)
